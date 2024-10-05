@@ -1,0 +1,22 @@
+.shortcut-content{
+    font-size: 20px;
+    font-weight: 800;
+}
+.shortcut-component{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 20px 20px 0px  ;
+}
+.shortcut-item{
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+.shortcut-item:hover{
+    box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.5); 
+}

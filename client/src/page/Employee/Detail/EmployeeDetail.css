@@ -1,0 +1,274 @@
+.employee-detail{
+    margin-top:60px;
+}
+.arrow-left{
+    background-color: white;
+    width:35px;
+    height:35px;
+    border-radius: 10px;
+}
+.icon-left{
+    margin-top: 5px;
+}
+.sidebar{
+    padding-left: 30px;
+}
+.image{
+    width:215px;
+    height:215px;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 45px;
+    border :1px solid black;
+}
+.giao{
+    font-size: 15px;
+    padding:10px 0px;
+    
+}
+.giao-button{
+    background-color: white;
+    border-radius: 50%;
+    border:1px solid;
+    height:35px;
+    width: 35px;
+}
+.dinh-button{
+    width: 175px;
+    background-color: white;
+    border-radius: 10px;
+    height:35px;
+}
+.nhan{
+    font-size: 15px;
+    padding:10px 0px;
+}
+.nhan-input{
+    height:35px;
+    border:none;
+    width:175px;
+    border-radius: 10px;
+}
+.component{
+    background-color: rgb(244,245,246);
+    width:1225px;
+    height:710px;
+    float: right;
+}
+.insert-container{
+    height:710px;
+}
+.personal-infor{
+    background-color: white;
+    border-radius: 10px;
+    padding:20px 0px 10px 30px;
+    margin:0px 30px 20px 20px;
+}
+.icon{
+    padding-top: 5px;
+}
+.title{
+    padding-bottom: 20px;
+}
+.input-content{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:700px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content2{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:275px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content3{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:70px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content4{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content5{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content6{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content7{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:250px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content8{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:300px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content9{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content10{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:400px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content11{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:450px;
+    background-color:white;
+    margin-right: 20px;
+}
+.area{
+    height:100px;
+    resize: none;
+    border-radius: 10px;
+    background-color: rgb(244,245,246);
+}
+.input-content16{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:400px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content17{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content18{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+
+.input-group{
+    display: grid;
+
+}
+.input-title{
+    font-size: 13px;
+}
+.input-option{
+    border-radius: 10px;
+    background-color: rgb(244,245,246);
+    border:1px solid white
+}
+table,tr,th,td{
+    border:1px solid rgb(244,245,246);
+    border-collapse: collapse;
+}
+table{
+    width: 900px;
+}
+textarea,select{
+    border:none;
+    width: 100%;
+    resize: none;
+}
+.btn-them{
+    margin-top: 20px;
+    height:35px;
+    width: 70px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.red{
+    color: red;
+    font-size: 10px;
+    padding-top: 7px;
+}
+.textarea{
+    height:75px;
+    width :1050px;
+    background-color: rgb(244,245,246);
+}
+
+.dropdown-menu {
+    display: none; 
+    position: absolute;
+    background-color: white; 
+    border: 1px solid #ccc; 
+    z-index: 1; 
+}
+
+.dropdown-menu.show {
+    display: block; 
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.remove-part {
+    background-color: red; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
+    position: absolute;
+    z-index:1;
+}
+
+.save-part {
+    background-color: rgb(36,144,239); 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    
+}

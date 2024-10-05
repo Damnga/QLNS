@@ -1,0 +1,95 @@
+.employee-transfer{
+    background-color: rgb(244,245,246);
+    height:790px;
+ }
+ .employee-transfer-table{
+     background-color: white;
+     border-radius: 15px;
+     width:1150px;
+     padding:30px;
+     margin-bottom: 20px;
+     overflow-y: auto;
+     max-width: 100%;
+     height:700px;
+ }
+ .employee-transfer-table-header{
+     display: flex;
+     background-color: white;
+     width:1100px;
+ }
+ .employee-transfer-search-filter{
+         padding: 0px 20px;
+ }
+ .employee-transfer-search-filter-input{
+     background-color: rgb(244,245,246);
+     color:white;
+     height:35px;
+     border-radius: 10px;
+     width:150px;
+     border:1px solid white; 
+ }
+ .employee-transfer-insert{
+     border-radius: 10px;
+     padding: 0px 20px;
+ }
+ .employee-transfer-insert-button{
+     background-color: rgb(36,144,239);
+     color:white;
+     height:35px;
+     border-radius: 10px;
+     width:200px;
+     border:1px solid white;
+     
+ }
+ .employee-transfer-filter{
+     padding-left: 350px;
+     display: flex;
+ }
+ .employee-transfer-filter-coponent{
+     height:35px;
+     border-radius: 10px;
+     width:150px;
+     border:1px solid white;
+ }
+ .employee-transfer-filter-coponent span{
+     padding-bottom: 5px;
+ }
+ .employee-transfer-filter-icon{
+     width: 20px;
+ }
+ .employee-transfer-table-contain{
+     padding-top: 20px;
+     display:grid ;
+     flex-direction: column; 
+ }
+ .employee-transfer-table-filter{
+     margin-top: 20px;
+     height:560px;
+     overflow-y: auto;
+ }
+ .employee-transfer-format{
+     display: grid;
+     grid-template-columns: 0.05fr 0.1fr 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
+     align-items: center;
+     gap:10px;
+     padding:12px 15px;
+     border: 1px solid #cacaca;
+     font-size: 13px;
+ }
+ 
+ .employee-transfer-format-title{
+     display: grid;
+     grid-template-columns:  0.05fr 0.1fr 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr ;
+     align-items: center;
+     gap:10px;
+     padding:12px 15px;
+     border: 1px solid #cacaca;
+     font-size: 13px;
+ }
+ .employee-transfer-format:hover{
+     background-color: rgb(244,245,246);
+ }
+ td{
+     border:none;
+ }
+ 

@@ -1,0 +1,114 @@
+.filterheader{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    width: 100%;
+    background-color: #fff; 
+    height:75px;
+    background-color: rgb(244,245,246);
+}
+.filterheader-left{
+
+    display: flex;
+    gap:10px;
+    margin-left: 40px;
+    align-items: center; 
+    display: flex;
+
+}
+.filterheader-left div{
+    float: left;
+    padding-top: 4px;
+}
+.filterheader-left span{
+    font-size: 25px;
+    font-weight: 600;
+}
+.filterheader-left-icon{
+    height:20px;
+    text-align: left;
+
+}
+.filterheader-right{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    margin-right: 40px;
+}
+
+.filterheader-right-select-text{
+    height:35px;
+    width:250px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.filterheader-right-refesh{
+    background-color: #fff;
+    height:35px;
+    width:35px;
+    align-items: center;
+    border-radius: 10px;
+}
+.refesh{
+    width:20px;
+    margin-top: 7px;
+}
+.filterheader-right-dot{
+    background-color: #fff;
+    height:35px;
+    width:35px;
+    align-items: center;
+    border-radius: 10px;
+}
+.dot{
+    width:20px;
+    margin-top: 7px;
+}
+.filterheader-right-plus{
+    align-items: center;
+    display: flex;
+    background-color:rgb(36,144,239);
+    color:#fff;
+    height:35px;
+    width:150px;
+    border-radius: 10px;
+    
+}
+.filterheader-right-plus-icon{
+    width:20px;
+    padding-left: 5px;
+    padding-top: 3px;
+    
+}
+.filterheader-right-plus-text{
+    font-size: 15px;
+    padding-left: 5px;
+}
+.dropdown-menu{
+    display: none; 
+    position: absolute;
+    background-color: white; 
+    border: 1px solid #ccc; 
+    z-index: 1; 
+}
+
+.dropdown-menu.show{
+    display: block; 
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.remove-part-header{
+    background-color: red; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
+    position: absolute;
+    z-index:1;
+    margin-left: 225px;
+}

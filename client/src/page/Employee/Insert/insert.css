@@ -1,0 +1,180 @@
+.insert_employee{
+    background-color:rgb(244,245,246);
+    border:1px solid white;
+    width:1000px;
+    height:760px;
+    position: fixed;
+    border-radius: 15px;
+    margin:20px 20px 70px 400px;
+}
+.save{
+    padding:20px;
+    display: flex;
+}
+.insert-container{
+    overflow-y:auto ;
+    height:655px;
+}
+.btn-save{
+    width:100px;
+    height:35px;
+    border-radius: 10px;
+    border:1px solid white;
+    background-color: rgb(36,144,239);
+    color:white;
+}
+.exit{
+    padding-top: 5px;
+    padding-left: 830px;
+}
+.personal-infor{
+    background-color: white;
+    border-radius: 10px;
+    padding:20px 0px 10px 30px;
+    margin:0px 30px 20px 20px;
+}
+.icon{
+    padding-top: 5px;
+}
+.title{
+    padding-bottom: 20px;
+}
+.input-content{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:700px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content2{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:275px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content3{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:70px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content4{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content5{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content6{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content7{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:250px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content8{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:300px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content9{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:150px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content10{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:400px;
+    background-color:white;
+    margin-right: 20px;
+}
+.input-content11{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:450px;
+    background-color:white;
+    margin-right: 20px;
+}
+.area{
+    height:100px;
+    resize: none;
+    border-radius: 10px;
+    background-color: rgb(244,245,246);
+}
+.input-content16{
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    gap: 20px;
+    height:400px;
+    background-color:white;
+    margin-right: 20px;
+}
+
+.input-group{
+    display: grid;
+
+}
+.input-title{
+    font-size: 13px;
+}
+.input-option{
+    border-radius: 10px;
+    background-color: rgb(244,245,246);
+    border:1px solid white
+}
+table,tr,th,td{
+    border:1px solid rgb(244,245,246);
+    border-collapse: collapse;
+}
+table{
+    width: 900px;
+}
+textarea,select{
+    border:none;
+    width: 100%;
+    resize: none;
+}
+.btn-them{
+    margin-top: 20px;
+    height:35px;
+    width: 70px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.red{
+    color: red;
+    font-size: 10px;
+    padding-top: 7px;
+}

@@ -1,0 +1,47 @@
+.filtersidebar{
+    height:710px;
+    width:275px;
+    float: left;
+    background-color: rgb(244,245,246);
+    overflow-y: auto;
+}
+.filtersidebar-title{
+    margin-left: 40px;
+    padding-bottom: 15px;
+}
+.filtersidebar-select-up{
+    width:200px;
+    margin-left: 40px;
+    height:35px;
+    border-radius: 10px;
+}
+.option{
+    font-size: 40px;
+}
+.gap{
+   margin:15px 0px;
+}
+.filtersidebar-select-middle{
+    width:200px;
+    margin-left: 40px;
+    height:35px;
+    border-radius: 10px;
+}
+.filtersidebar-title2{
+    padding-top: 5px;
+    margin-left: 40px;
+    padding-bottom: 15px;
+    color:rgb(36,144,239);
+}
+.filtersidebar-form{
+    margin-left: 40px;
+}
+.input{
+    height:35px;
+    width:200px;
+    background-color:rgb(235,238,240);
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+
+}

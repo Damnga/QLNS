@@ -1,0 +1,461 @@
+{
+  "NhanVien": [],
+  "LoaiNhanVien": [
+    {
+      "ID": "002",
+      "LoaiNhanVien": "Bán thời gian",
+      "id": "c9e7"
+    },
+    {
+      "id": "522c",
+      "LoaiNhanVien": "ghẻghergre"
+    }
+  ],
+  "ChiNhanh": [
+    {
+      "ID": "001",
+      "ChiNhanh": "Hà Nội",
+      "id": "fd3e"
+    },
+    {
+      "ID": "002",
+      "ChiNhanh": "TP.Hồ Chí Minh",
+      "id": "90be"
+    },
+    {
+      "ID": "003",
+      "ChiNhanh": "Hải Phòng",
+      "id": "a080"
+    },
+    {
+      "ID": "004",
+      "ChiNhanh": "Đà Nẵng",
+      "id": "7a98"
+    },
+    {
+      "ID": "005",
+      "ChiNhanh": "Nha ",
+      "id": "e3c2"
+    }
+  ],
+  "PhongBan": [
+    {
+      "ID": "001",
+      "PhongBan": "Kinh doanh",
+      "id": "5dc3"
+    },
+    {
+      "ID": "002",
+      "PhongBan": "Nhân sự",
+      "id": "4626"
+    },
+    {
+      "ID": "003",
+      "PhongBan": "Kế toán",
+      "id": "2905"
+    },
+    {
+      "ID": "004",
+      "PhongBan": "Marketing",
+      "id": "70ad"
+    },
+    {
+      "ID": "005",
+      "PhongBan": "Công nghệ thông tin",
+      "id": "8e53"
+    },
+    {
+      "ID": "006",
+      "PhongBan": "Phát triển sản phẩm",
+      "id": "8723",
+      "ID_ChiNhanh": "7a98"
+    },
+    {
+      "ID": "007",
+      "PhongBan": "Dịch vụ khách hàng",
+      "id": "d91f"
+    },
+    {
+      "ID": "008",
+      "PhongBan": "Quản lý dự án",
+      "id": "438d"
+    },
+    {
+      "ID": "009",
+      "PhongBan": "Hành chính",
+      "id": "365c"
+    },
+    {
+      "ID": "010",
+      "PhongBan": "Mua sắm",
+      "id": "5136"
+    },
+    {
+      "ID": "011",
+      "PhongBan": "Quản lý chất lượng",
+      "id": "4705"
+    },
+    {
+      "ID": "012",
+      "PhongBan": "Truyền thông",
+      "id": "5166"
+    },
+    {
+      "ID": "013",
+      "PhongBan": "Đào tạo",
+      "id": "4f98"
+    },
+    {
+      "ID": "014",
+      "PhongBan": "Phát triển kinh doanh",
+      "id": "d9d8"
+    },
+    {
+      "ID": "015",
+      "PhongBan": "Nghiên cứu ",
+      "id": "382d"
+    },
+    {
+      "ID": "016",
+      "PhongBan": "Sản xuất",
+      "id": "628d"
+    },
+    {
+      "ID": "017",
+      "PhongBan": "IT hỗ trợ",
+      "id": "99e8"
+    },
+    {
+      "ID": "018",
+      "PhongBan": "Thiết kế",
+      "id": "bdc8"
+    },
+    {
+      "ID": "019",
+      "PhongBan": "An ninh mạng",
+      "id": "d244"
+    },
+    {
+      "ID": "020",
+      "PhongBan": "Pháp lý",
+      "id": "49e8",
+      "ID_ChiNhanh": "90be"
+    },
+    {
+      "id": "56b0",
+      "PhongBan": "kp",
+      "ID_ChiNhanh": "fd3e"
+    }
+  ],
+  "ChucDanh": [
+    {
+      "ID": "002",
+      "ChucDanh": "Quản lý dự án",
+      "KyNang": "Quản lý thời gian",
+      "id": "1792"
+    },
+    {
+      "ID": "003",
+      "ChucDanh": "Chuyên viên nhân sự",
+      "KyNang": "Giao tiếp",
+      "id": "121a"
+    },
+    {
+      "ID": "004",
+      "ChucDanh": "Kế toán trưởng",
+      "KyNang": "Phân tích số liệu",
+      "id": "297f"
+    },
+    {
+      "ID": "005",
+      "ChucDanh": "Chuyên viên marketing",
+      "KyNang": "Sáng tạo nội dung",
+      "id": "5c02"
+    },
+    {
+      "ID": "006",
+      "ChucDanh": "Lập trình viên",
+      "KyNang": "Lập trình",
+      "id": "45eb"
+    },
+    {
+      "ID": "007",
+      "ChucDanh": "Nhân viên hỗ trợ khách hàng",
+      "KyNang": "Giải quyết vấn đề",
+      "id": "0960"
+    },
+    {
+      "ID": "008",
+      "ChucDanh": "Chuyên viên phát triển sản phẩm",
+      "KyNang": "Phân tích thị trường",
+      "id": "6755"
+    },
+    {
+      "ID": "009",
+      "ChucDanh": "Nhân viên hành chính",
+      "KyNang": "Tổ chức công việc",
+      "id": "09bf"
+    },
+    {
+      "ID": "010",
+      "ChucDanh": "Chuyên viên pháp lý",
+      "KyNang": "Tư vấn pháp lý",
+      "id": "873b"
+    },
+    {
+      "ID": "011",
+      "ChucDanh": "Thiết kế đồ họa",
+      "KyNang": "Thiết kế sáng tạo",
+      "id": "2f3e"
+    },
+    {
+      "ID": "012",
+      "ChucDanh": "Nhân viên nghiên cứu và phát triển",
+      "KyNang": "Nghiên cứu",
+      "id": "c79e"
+    },
+    {
+      "ID": "013",
+      "ChucDanh": "Quản lý bán hàng",
+      "KyNang": "Đàm phán",
+      "id": "d0e8"
+    },
+    {
+      "ID": "014",
+      "ChucDanh": "Chuyên viên đào tạo",
+      "KyNang": "Giảng dạy",
+      "id": "e13b"
+    },
+    {
+      "ID": "015",
+      "ChucDanh": "Giám sát sản xuất",
+      "KyNang": "Quản lý sản xuất",
+      "id": "fcfe"
+    },
+    {
+      "ID": "016",
+      "ChucDanh": "Chuyên viên IT",
+      "KyNang": "Kỹ thuật công nghệ",
+      "id": "df3b"
+    },
+    {
+      "ID": "017",
+      "ChucDanh": "Chuyên gia an ninh mạng",
+      "KyNang": "An ninh thông tin",
+      "id": "5b57"
+    },
+    {
+      "ID": "018",
+      "ChucDanh": "Nhân viên tiếp thị",
+      "KyNang": "Chiến lược tiếp thị",
+      "id": "16be"
+    },
+    {
+      "ID": "019",
+      "ChucDanh": "Trợ lý giám đốc",
+      "KyNang": "Hỗ trợ quản lý",
+      "id": "2ec7"
+    },
+    {
+      "ID": "020",
+      "ChucDanh": "Quản lý chất lượng",
+      "KyNang": "Đánh giá chất lượng",
+      "id": "ffa7"
+    },
+    {
+      "id": "2aaa",
+      "ID": "001",
+      "ChucDanh": "Giám đốc ",
+      "KyNang": "Lãnh đạo"
+    }
+  ],
+  "CapBac": [
+    {
+      "ID": "001",
+      "CapBac": "Nhân viên",
+      "CauTrucLuong": 1000,
+      "id": "74f6"
+    },
+    {
+      "ID": "002",
+      "CapBac": "Trưởng nhóm",
+      "CauTrucLuong": 1500,
+      "id": "99aa"
+    },
+    {
+      "ID": "003",
+      "CapBac": "Quản lý",
+      "CauTrucLuong": 1700,
+      "id": "18c7"
+    },
+    {
+      "ID": "004",
+      "CapBac": "Giám đốc",
+      "CauTrucLuong": 2000,
+      "id": "8644"
+    }
+  ],
+  "NhomNhanVien": [
+    {
+      "ID": "002",
+      "NhomNhanVien": "Nhân sự",
+      "id": "df42"
+    },
+    {
+      "ID": "003",
+      "NhomNhanVien": "Kế toán",
+      "id": "a3ba"
+    },
+    {
+      "ID": "004",
+      "NhomNhanVien": "Marketing",
+      "id": "0e18"
+    },
+    {
+      "ID": "005",
+      "NhomNhanVien": "Phát triển sản phẩm",
+      "id": "9b6b"
+    },
+    {
+      "ID": "007",
+      "NhomNhanVien": "Hỗ trợ khách hàng",
+      "id": "c701"
+    },
+    {
+      "ID": "008",
+      "NhomNhanVien": "Nghiên cứu và phát triển",
+      "id": "3d37"
+    },
+    {
+      "ID": "009",
+      "NhomNhanVien": "Quản lý dự án",
+      "id": "b279"
+    },
+    {
+      "ID": "010",
+      "NhomNhanVien": "Sản xuất",
+      "id": "9069"
+    },
+    {
+      "ID": "011",
+      "NhomNhanVien": "Bán hàng",
+      "id": "a20c"
+    },
+    {
+      "ID": "012",
+      "NhomNhanVien": "Thiết kế",
+      "id": "8c39"
+    },
+    {
+      "ID": "013",
+      "NhomNhanVien": "Quản lý chất lượng",
+      "id": "d88d"
+    },
+    {
+      "ID": "014",
+      "NhomNhanVien": "Chăm sóc khách hàng",
+      "id": "a536"
+    },
+    {
+      "ID": "015",
+      "NhomNhanVien": "Giám sát",
+      "id": "08b0"
+    },
+    {
+      "ID": "016",
+      "NhomNhanVien": "Đào tạo",
+      "id": "7251"
+    },
+    {
+      "ID": "017",
+      "NhomNhanVien": "Tư vấn",
+      "id": "bd83"
+    },
+    {
+      "ID": "018",
+      "NhomNhanVien": "Pháp lý",
+      "id": "bac7"
+    },
+    {
+      "ID": "019",
+      "NhomNhanVien": "An ninh mạng",
+      "id": "4a2a"
+    },
+    {
+      "ID": "020",
+      "NhomNhanVien": "Logistics",
+      "id": "abfb"
+    },
+    {
+      "id": "2876",
+      "ID": "006",
+      "NhomNhanVien": "IT "
+    }
+  ],
+  "BaoHiemNhanVien": [
+    {
+      "ID": "008",
+      "BaoHiem": "Bảo hiểm hưu trí",
+      "id": "553e"
+    },
+    {
+      "ID": "010",
+      "BaoHiem": "Bảo hiểm thương tích",
+      "id": "15b6"
+    },
+    {
+      "ID": "011",
+      "BaoHiem": "Bảo hiểm cho con cái",
+      "id": "dfb6"
+    },
+    {
+      "ID": "012",
+      "BaoHiem": "Bảo hiểm bệnh hiểm nghèo",
+      "id": "c0bc"
+    },
+    {
+      "ID": "013",
+      "BaoHiem": "Bảo hiểm du lịch",
+      "id": "adfa"
+    },
+    {
+      "ID": "014",
+      "BaoHiem": "Bảo hiểm xe cộ",
+      "id": "b7a5"
+    },
+    {
+      "ID": "015",
+      "BaoHiem": "Bảo hiểm trách nhiệm dân sự",
+      "id": "1675"
+    },
+    {
+      "ID": "017",
+      "BaoHiem": "Bảo hiểm bảo vệ tài sản",
+      "id": "8177"
+    },
+    {
+      "ID": "018",
+      "BaoHiem": "Bảo hiểm bảo vệ doanh nghiệp",
+      "id": "2172"
+    },
+    {
+      "ID": "019",
+      "BaoHiem": "Bảo hiểm ngắn hạn",
+      "id": "0a2c"
+    },
+    {
+      "ID": "020",
+      "BaoHiem": "Bảo hiểm lâu dài",
+      "id": "3a44"
+    },
+    {
+      "id": "dd95",
+      "BaoHiem": "",
+      "BaoHiemNhanVien": "ih8i8yh8u9gyh89"
+    },
+    {
+      "id": "6806",
+      "BaoHiem": "yugfg"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+.branch{
+    background-color: rgb(244,245,246);
+    height:790px;
+ }
+.branch-table{
+    background-color: white;
+    border-radius: 15px;
+    width:1150px;
+    padding:30px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-width: 100%;
+    height:700px;
+}
+.branch-table-header{
+    display: flex;
+    background-color: white;
+    width:1100px;
+}
+.branch-search-filter{
+        padding: 0px 20px;
+}
+.branch-search-filter-input{
+    background-color: rgb(244,245,246);
+    color:white;
+    height:35px;
+    border-radius: 10px;
+    width:150px;
+    border:1px solid white; 
+}
+.branch-insert{
+    border-radius: 10px;
+    padding: 0px 20px;
+}
+.branch-insert-button{
+    background-color: rgb(36,144,239);
+    color:white;
+    height:35px;
+    border-radius: 10px;
+    width:200px;
+    border:1px solid white;
+    
+}
+.branch-filter{
+    padding-left: 350px;
+    display: flex;
+}
+.branch-filter-coponent{
+    height:35px;
+    border-radius: 10px;
+    width:150px;
+    border:1px solid white;
+}
+.branch-filter-coponent span{
+    padding-bottom: 5px;
+}
+.branch-filter-icon{
+    width: 20px;
+}
+.branch-table-contain{
+    padding-top: 20px;
+    display:grid ;
+    flex-direction: column; 
+}
+.branch-table-filter{
+    margin-top: 20px;
+    height:560px;
+    overflow-y: auto;
+}
+.branch-format{
+    display: grid;
+    grid-template-columns:0.5fr 1fr 1.25fr;
+    align-items: center;
+    gap:10px;
+    padding:12px 15px;
+    border: 1px solid #cacaca;
+    font-size: 13px;
+}
+
+.branch-format-title{
+    display: grid;
+    grid-template-columns:  0.5fr 1fr 1.25fr ;
+    align-items: center;
+    gap:10px;
+    padding:12px 15px;
+    border: 1px solid #cacaca;
+    font-size: 13px;
+}
+.branch-format:hover{
+    background-color: rgb(244,245,246);
+}
+td{
+    border:none;
+}
