@@ -106,34 +106,32 @@ const Branch = () => {
         }
     };
 
-    const handleEdit = async () => {
-        if (!editingId) return;
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        if (!editingId) return; 
         try {
-            const response = await fetch(`${API_URL}/${editingId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(branchData),
-            });
-
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(`Cập nhật không thành công: ${errorMessage}`);
-            }
-
-            setBranch((prevBranches) =>
-                prevBranches.map(item => item.id === editingId ? { ...item, ...branchData } : item)
-            ); // Cập nhật danh sách mà không cần fetch lại
-            toast.success('Thông tin chi nhánh đã cập nhật', {
-                position: "top-right",
-            });
-            closeEdit();
+          const response = await fetch(`${API_URL}/${editingId}`, { 
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(branchData),
+          });
+    
+          if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(`Cập nhật không thành công: ${errorMessage}`);
+          }
+    
+          toast.success('Thông tin nhóm nhân viên đã cập nhật', {
+            position: "top-right",
+          });
+          fetchBranch(); // Đảm bảo fetch lại dữ liệu
+          closeEdit(); 
         } catch (error) {
-            toast.error(error.message, {
-                position: "top-right",
-            });
+          toast.error(error.message, {
+            position: "top-right",
+          });
         }
-    };
-
+      };
     const handleRemove = async (id) => {
         if (!id) return;
         try {
@@ -144,6 +142,7 @@ const Branch = () => {
             toast.success('Chi nhánh đã được xóa thành công!', {
                 position: "top-right",
             });
+            fetchBranch();
         } catch (error) {
             toast.error(error.message, {
                 position: "top-right",

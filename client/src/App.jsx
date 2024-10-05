@@ -58,7 +58,7 @@ const App = () => {
   const [path, setPath] = useState("/");
   const [clickLink, setClickLink] = useState(false);
   const [pathshortcut, setPathshortcut] = useState("/");
-  const [isLoginOpen, setIsLoginOpen] = useState(true);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isDialogInsertOpen, setIsDialogInsertOpen] = useState(false);
 
   const handleToggleDialog = () => {
@@ -70,13 +70,13 @@ const App = () => {
   };
 
   useEffect(() => {}, [isSidebarOpen]);
-  useEffect(() => {
-    if (isLoginOpen) {
-      document.body.classList.add('login-open');
-    } else {
-      document.body.classList.remove('login-open');
-    }
-  }, [isLoginOpen]);
+  // useEffect(() => {
+  //   if (isLoginOpen) {
+  //     document.body.classList.add('login-open');
+  //   } else {
+  //     document.body.classList.remove('login-open');
+  //   }
+  // }, [isLoginOpen]);
 
   
   return (
@@ -85,9 +85,7 @@ const App = () => {
       {isDialogInsertOpen && (
         <Insert setIsDialogInsertOpen={setIsDialogInsertOpen} />
       )}
-      {isLoginOpen && (
-        <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} onClose={() => setIsLoginOpen(false)} />
-      )}
+     
       <div id="main" className={isLoginOpen ? 'blur' : ''}>
           <Navbar  pathshortcut={pathshortcut} setPathshortcut={setPathshortcut} menu={menu} setMenu={setMenu} path={path} setPath={setPath} clickLink={clickLink} setClickLink={setClickLink} />
         <div id="main">

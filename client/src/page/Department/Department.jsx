@@ -115,29 +115,30 @@ const [branches, setBranches] = useState([]);
     }
   };
 
-  const handleEdit =async (id) => {
+  const handleEdit =async (e) => {
+    e.preventDefault();
     if (!editingId) return; 
     try {
-        const response = await fetch(`${API_URL}/${id}`, { 
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(phongbanData),
-        });
+      const response = await fetch(`${API_URL}/${editingId}`, { 
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(phongbanData),
+      });
 
-        if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(`Cập nhật không thành công: ${errorMessage}`);
-        }
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Cập nhật không thành công: ${errorMessage}`);
+      }
 
-        toast.success('Thông tin phòng ban đã cập nhật', {
-            position: "top-right",
-        });
-        await fetchDepartment(); 
-        closeEdit(); 
+      toast.success('Thông tin phòng ban đã cập nhật', {
+        position: "top-right",
+      });
+      fetchDepartment(); // Đảm bảo fetch lại dữ liệu
+      closeEdit(); 
     } catch (error) {
-        toast.error(error.message, {
-            position: "top-right",
-        });
+      toast.error(error.message, {
+        position: "top-right",
+      });
     }
   };
 

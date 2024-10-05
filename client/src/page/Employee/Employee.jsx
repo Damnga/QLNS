@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Insert from "./Insert/insert";
-const API_URL = 'http://localhost:3000/NhanVien';
+const API_URL = 'http://localhost:1323/NhanVien';
 const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
   const navigate = useNavigate();
   const [selectAll, setSelectAll] = useState(false);
@@ -20,8 +20,8 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
   const [employeeData, setEmployeeData] = useState({
     Ten:"", Dem:"", Ho:"",Email:"",ID_LoaiNhanVien:"",ID_CapBac:"",NgayBatDau:"",NgayKetThuc:"",  GioiTinh:"", Sdt:"",DiaChi:"",CCCD:"",NgaySinh:""
   });
-  const EMPLOYEETYPE__API_URL ="http://localhost:3000/LoaiNhanVien";
-  const LEVEL__API_URL ="http://localhost:3000/CapBac";
+  const EMPLOYEETYPE__API_URL ="http://localhost:1323/LoaiNhanVien";
+  const LEVEL__API_URL ="http://localhost:1323/CapBac";
   const [employeetype,setEmployeetype]=useState([]);
   const [level,setLevel] =useState([]);
   const [employee,setEmployee]=useState([]);

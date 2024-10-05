@@ -98,31 +98,32 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
     }
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (e) => {
+    e.preventDefault();
     if (!editingId) return; 
     try {
-        const response = await fetch(`${API_URL}/${id}`, { 
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(employeeTypeData),
-        });
+      const response = await fetch(`${API_URL}/${editingId}`, { 
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(employeeTypeData),
+      });
 
-        if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(`Cập nhật không thành công: ${errorMessage}`);
-        }
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Cập nhật không thành công: ${errorMessage}`);
+      }
 
-        toast.success('Thông tin loại nhân viên đã cập nhật', {
-            position: "top-right",
-        });
-        await fetchEmployeeTypes(); // Đảm bảo fetch lại dữ liệu
-        closeEdit(); 
+      toast.success('Thông tin nhóm nhân viên đã cập nhật', {
+        position: "top-right",
+      });
+      fetchEmployeeTypes(); // Đảm bảo fetch lại dữ liệu
+      closeEdit(); 
     } catch (error) {
-        toast.error(error.message, {
-            position: "top-right",
-        });
+      toast.error(error.message, {
+        position: "top-right",
+      });
     }
-};
+  };
 
 const handleRemove = async (id) => {
   if (!id) return; 

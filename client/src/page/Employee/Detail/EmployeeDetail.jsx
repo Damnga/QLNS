@@ -9,22 +9,43 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const EMPLOYEE_API_URL = 'http://localhost:1323/NhanVien';
 const EMPLOYEE_TYPE_API_URL="http://localhost:1323/LoaiNhanVien";
 const LEVEL__API_URL ="http://localhost:1323/CapBac";
+const RELATIVE_API_URL="http://localhost:1323/NguoiThanNhanVien";
 const EmployeeDetail = () => {
-  const navigate = useNavigate();
-  const [employeeInfor, setEmployeeInfo] = useState({});
-  const [level,setLevel] =useState([]);
-  const [employeetype,setEmployeetype]=useState([]);
-  const {id} =useParams();
-  useEffect(() => {
+const {id} =useParams();
+const navigate = useNavigate();
+const [employeeInfor, setEmployeeInfo] = useState({});
+const [level,setLevel] =useState([]);
+const [employeetype,setEmployeetype]=useState([]);
+// const [employeeRelative, setEmployeeRelative] = useState([]);
+const [erelativeData,setErelativeData]=useState({
+    IDNhanVien: id,
+    TenNguoiThan: "",
+    SDTNguoiThan: "",
+    QuanHe: "",
+    DiaChiNguoiThan: ""});
+useEffect(() => {
     fetchEmployee();
     fetchEmployeeType();
     fetchLevel();
-    
-  }, []);
-  const fetchEmployeeType = async () => {
+    fetchRelative();
+}, []);
+const fetchRelative = async () => {
+  try {
+    const response = await fetch(`${RELATIVE_API_URL}?IDNhanVien=${id}`);
+    const data = await response.json();
+    if (data && data.length > 0) {
+      setErelativeData(data[0]);
+    }
+  } catch (error) {
+    console.error('Error fetching relatives:', error);
+  }
+};
+
+const fetchEmployeeType = async () => {
     try {
       const response = await fetch(EMPLOYEE_TYPE_API_URL);
       const data = await response.json();
@@ -32,8 +53,8 @@ const EmployeeDetail = () => {
     } catch (error) {
       console.error('Error fetching branches:', error);
     }
-  };
-  const fetchLevel = async () => {
+};
+const fetchLevel = async () => {
     try {
       const response = await fetch(LEVEL__API_URL);
       const data = await response.json();
@@ -41,8 +62,8 @@ const EmployeeDetail = () => {
     } catch (error) {
       console.error('Error fetching branches:', error);
     }
-  };
-  const fetchEmployee = async () => {
+};
+const fetchEmployee = async () => {
     try {
       const response = await fetch(EMPLOYEE_API_URL);
       const data = await response.json();
@@ -55,7 +76,7 @@ const EmployeeDetail = () => {
     } catch (error) {
       console.error('Error fetching employees:', error);
     }
-  };
+};
 const [click1,setClick1]=useState(false);
 const eventclick1=()=>{
   setClick1(!click1);
@@ -143,38 +164,36 @@ const handleAddRow = () => {
     }];
     setData(newData);
 };
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedItems, setSelectedItems] = useState(data.map(() => false));
-  const handleSelectAllChange = (event) => {
+const [selectAll, setSelectAll] = useState(false);
+const [selectedItems, setSelectedItems] = useState(data.map(() => false));
+const handleSelectAllChange = (event) => {
       const checked = event.target.checked;
       setSelectAll(checked);
       setSelectedItems(selectedItems.map(() => checked));
-  };
-  const handleItemChange = (index) => (event) => {
+};
+const handleItemChange = (index) => (event) => {
       const checked = event.target.checked;
       const updatedSelectedItems = [...selectedItems];
       updatedSelectedItems[index] = checked;
       setSelectedItems(updatedSelectedItems);
       const allChecked = updatedSelectedItems.every((item) => item);
       setSelectAll(allChecked);
-  };
-  const handleDeleteSelected = () => {
+};
+const handleDeleteSelected = () => {
     const newData = data.filter((_, index) => !selectedItems[index]);
         const updatedData = newData.map((item, index) => ({ ...item, stt: index + 1 }));
         setData(updatedData);
         setSelectedItems(updatedData.map(() => false));
         setSelectAll(false);
 };
-
-
-  const handleChange = (e) => {
+const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployeeInfo(prevData => ({
         ...prevData,
         [name]: value
     }));
-  };
-  const handleSave = async () => {
+};
+const handleSave = async () => {
     try {
         const response = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
             method: 'PUT', // Hoặc 'PATCH' nếu bạn chỉ muốn cập nhật một số trường
@@ -196,7 +215,6 @@ const handleAddRow = () => {
     }
 };
 const [dropdown,setDropdown]= useState(false);
-
 const drop =()=>{
   setDropdown(!dropdown);
 };
@@ -217,7 +235,66 @@ const handleDelete = async () => {
       console.log("Error deleting employee:", error);
   }
 };
+const handleChangeER = (e) => {
+  const { name, value } = e.target;
+  setErelativeData(prevData => ({
+      ...prevData,
+      [name]: value
+  }));
+};
+const handleSaveER = async (e) => {
+  e.preventDefault();
+  if (erelativeData.IDNhanVien === id) {
+    await handleEditER();
+  } else {
+    await handleAddER();
+  }
+};
 
+const handleAddER = async () => {
+  try {
+    const newNhomnhanvien = { ...erelativeData };
+    await fetch(`${RELATIVE_API_URL}/${erelativeData.IDNhanVien}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newNhomnhanvien),
+    });
+    toast.success('Nhóm Nhân viên mới đã được tạo thành công!', {
+      position: "top-right",
+    });
+    fetchRelative(); 
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+  }
+};
+
+const handleEditER = async () => {
+  try {
+    const response = await fetch(`${RELATIVE_API_URL}/${erelativeData.IDNhanVien}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(erelativeData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update employee relative information');
+    }
+
+    toast.success('Thông tin người thân nhân viên đã được cập nhật', {
+      position: "top-right",
+    });
+
+    fetchRelative();
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+  }
+};
   return (
     <div className='employee-detail'>
       <div className="header">
@@ -367,40 +444,33 @@ const handleDelete = async () => {
       </form>
     </div>
   )}
-</div>
-
+          </div>
           <div className='personal-infor'>
               <div className="title">
-                Liên Lạc Khẩn Cấp<ChevronDown className='icon'onClick={eventclick2}/>
+                Liên Lạc Khẩn Cấp <ChevronDown className='icon' onClick={eventclick2}/>
               </div>
               {click2 &&(
+                <form onSubmit={handleSaveER}>
                 <div className="input-content2" >
                   <div class="input-group">
                       <div className='input-title'>Tên Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' type="text"  />
+                      <input className='input-option' name="TenNguoiThan" onChange={handleChangeER} value={erelativeData.TenNguoiThan}  type="text"  />
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Số Điện Thoại Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' type="text" />
+                      <input className='input-option' name="SDTNguoiThan"  onChange={handleChangeER} value={erelativeData.SDTNguoiThan} type="text" />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>CCCD Của Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' type="text"  />
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Tỉnh Hoặc Thành Phố </div>
-                      <input className='input-option' type="text" />
+                      <div className='input-title'>Địa Chỉ  Người Liên Lạc Khẩn Cấp </div>
+                      <input className='input-option' name="DiaChiNguoiThan" onChange={handleChangeER} value={erelativeData.DiaChiNguoiThan} type="text" />
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Mối Quan Hệ Với Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' type="text"  />
+                      <input className='input-option' name="QuanHe"  onChange={handleChangeER} value={erelativeData.QuanHe} type="text"  />
                   </div>
-                  <div class="input-group">
-                      <div className='input-title'>Chi Tiết Địa Chỉ Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' type="text" />
-                  </div>
-                  <button className='save-part'>Lưu</button>
+                  <button type="submit" className='save-part'>Lưu</button>
                 </div>
+                </form>
               )}
           </div>
           <div className="personal-infor">

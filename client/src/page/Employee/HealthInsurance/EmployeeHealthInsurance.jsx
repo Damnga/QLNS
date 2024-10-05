@@ -102,9 +102,12 @@ const EmployeeHealthInsurance = () => {
     }
   };
 
-  const handleEdit = async (id) => {
+  
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    if (!editingId) return; 
     try {
-      const response = await fetch(`${API_URL}/${id}`, { 
+      const response = await fetch(`${API_URL}/${editingId}`, { 
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(baohiemData),
@@ -115,10 +118,10 @@ const EmployeeHealthInsurance = () => {
         throw new Error(`Cập nhật không thành công: ${errorMessage}`);
       }
 
-      toast.success('Thông tin bảo hiểm nhân viên đã cập nhật', {
+      toast.success('Thông tin bảo hiểm  đã cập nhật', {
         position: "top-right",
       });
-      await fetchHealthInsurance();
+      fetchHealthInsurance(); 
       closeEdit(); 
     } catch (error) {
       toast.error(error.message, {

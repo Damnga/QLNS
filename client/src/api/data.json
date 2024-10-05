@@ -1,5 +1,82 @@
 {
-  "NhanVien": [],
+  "NhanVien": [
+    {
+      "id": "5424",
+      "Ten": "nga",
+      "Dem": "thị",
+      "Ho": "Đàm",
+      "Email": "hgtrehh",
+      "ID_LoaiNhanVien": "",
+      "ID_CapBac": "",
+      "NgayBatDau": "",
+      "NgayKetThuc": "",
+      "GioiTinh": "nữ",
+      "Sdt": "nrgngn",
+      "DiaChi": "ynyntyn",
+      "CCCD": "12345",
+      "NgaySinh": ""
+    },
+    {
+      "id": "26a1",
+      "Ten": "nga",
+      "Dem": "thị",
+      "Ho": "Đàm",
+      "Email": "hgtrehh",
+      "ID_LoaiNhanVien": "",
+      "ID_CapBac": "",
+      "NgayBatDau": "",
+      "NgayKetThuc": "",
+      "GioiTinh": "nữ",
+      "Sdt": "nrgngn",
+      "DiaChi": "ynyntyn",
+      "CCCD": "ynytntyjnyt",
+      "NgaySinh": ""
+    },
+    {
+      "id": "9506",
+      "Ten": "nga",
+      "Dem": "thị",
+      "Ho": "Đàm",
+      "Email": "hgtrehh",
+      "ID_LoaiNhanVien": "",
+      "ID_CapBac": "",
+      "NgayBatDau": "",
+      "NgayKetThuc": "",
+      "GioiTinh": "nữ",
+      "Sdt": "nrgngn",
+      "DiaChi": "ynyntyn",
+      "CCCD": "ynytntyjnyt",
+      "NgaySinh": ""
+    }
+  ],
+  "HocVanNhanVien": [
+    {
+      "IDNhanVien": "",
+      "Truong": "",
+      "BangCap": "",
+      "CapHoc": "",
+      "NamTotNghiep": ""
+    }
+  ],
+  "NguoiThanNhanVien": [
+    {
+      "IDNhanVien": "",
+      "TenNguoiThan": "",
+      "SDTNguoiThan": "",
+      "QuanHe": "",
+      "DiaChiNguoiThan": ""
+    }
+   
+  ],
+  "ChucDanhNhanVien": [
+    {
+      "IDNhanVien": "",
+      "IDChucDanh": "",
+      "IDPhongBan": "",
+      "NgayBatDau": "",
+      "NgayKetThuc": ""
+    }
+  ],
   "LoaiNhanVien": [
     {
       "ID": "002",
@@ -9,6 +86,10 @@
     {
       "id": "522c",
       "LoaiNhanVien": "ghẻghergre"
+    },
+    {
+      "id": "2d6f",
+      "LoaiNhanVien": "hjkhpiohpiok"
     }
   ],
   "ChiNhanh": [
@@ -29,13 +110,8 @@
     },
     {
       "ID": "004",
-      "ChiNhanh": "Đà Nẵng",
+      "ChiNhanh": "Đà hdtheh",
       "id": "7a98"
-    },
-    {
-      "ID": "005",
-      "ChiNhanh": "Nha ",
-      "id": "e3c2"
     }
   ],
   "PhongBan": [
@@ -98,7 +174,8 @@
     {
       "ID": "012",
       "PhongBan": "Truyền thông",
-      "id": "5166"
+      "id": "5166",
+      "ID_ChiNhanh": "fd3e"
     },
     {
       "ID": "013",
@@ -134,17 +211,6 @@
       "ID": "019",
       "PhongBan": "An ninh mạng",
       "id": "d244"
-    },
-    {
-      "ID": "020",
-      "PhongBan": "Pháp lý",
-      "id": "49e8",
-      "ID_ChiNhanh": "90be"
-    },
-    {
-      "id": "56b0",
-      "PhongBan": "kp",
-      "ID_ChiNhanh": "fd3e"
     }
   ],
   "ChucDanh": [
@@ -265,7 +331,7 @@
     {
       "id": "2aaa",
       "ID": "001",
-      "ChucDanh": "Giám đốc ",
+      "ChucDanh": "Giám ",
       "KyNang": "Lãnh đạo"
     }
   ],
@@ -273,7 +339,7 @@
     {
       "ID": "001",
       "CapBac": "Nhân viên",
-      "CauTrucLuong": 1000,
+      "CauTrucLuong": "10000",
       "id": "74f6"
     },
     {
@@ -389,7 +455,7 @@
     {
       "id": "2876",
       "ID": "006",
-      "NhomNhanVien": "IT "
+      "NhomNhanVien": "IT it"
     }
   ],
   "BaoHiemNhanVien": [
@@ -447,15 +513,6 @@
       "ID": "020",
       "BaoHiem": "Bảo hiểm lâu dài",
       "id": "3a44"
-    },
-    {
-      "id": "dd95",
-      "BaoHiem": "",
-      "BaoHiemNhanVien": "ih8i8yh8u9gyh89"
-    },
-    {
-      "id": "6806",
-      "BaoHiem": "yugfg"
     }
   ]
 }
