@@ -19,7 +19,15 @@
   ],
   "HocVanNhanVien": [
     {
-      "id": "21b7",
+      "id": "0e5a",
+      "IDNhanVien": "25ed",
+      "Truong": "111",
+      "BangCap": "111111",
+      "CapHoc": "11111111",
+      "NamTotNghiep": "1111111111"
+    },
+    {
+      "id": "c7b2",
       "IDNhanVien": "25ed",
       "Truong": "",
       "BangCap": "",
@@ -27,12 +35,28 @@
       "NamTotNghiep": ""
     },
     {
-      "id": "b23e",
+      "id": "3cdd",
       "IDNhanVien": "25ed",
-      "Truong": "",
-      "BangCap": "",
-      "CapHoc": "",
-      "NamTotNghiep": ""
+      "Truong": "sdfsdfsdf",
+      "BangCap": " ",
+      "CapHoc": "sdf",
+      "NamTotNghiep": "sdfsdf"
+    },
+    {
+      "id": "192d",
+      "IDNhanVien": "25ed",
+      "Truong": "sdfsdfsdfsdfsd",
+      "BangCap": "dfsdfsdfsdsdfsdf",
+      "CapHoc": "dfsdsdfsdfsfsd",
+      "NamTotNghiep": "sdfsdf"
+    },
+    {
+      "id": "c18e",
+      "IDNhanVien": "25ed",
+      "Truong": "ềwwefwef",
+      "BangCap": "ềwwefwefwefewf",
+      "CapHoc": "fwefwefewfwefwe",
+      "NamTotNghiep": "efewfwefwewef"
     }
   ],
   "NguoiThanNhanVien": [],

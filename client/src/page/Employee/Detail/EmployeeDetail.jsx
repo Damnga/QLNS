@@ -3,12 +3,13 @@ import React from 'react'
 import "./EmployeeDetail.css";
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { AlignJustify,ChevronLeft,ChevronRight,Ellipsis,UserRound,Paperclip,Star,UserPen,Tag,ChevronDown,Asterisk} from 'lucide-react';
+import { AlignJustify,ChevronLeft,ChevronRight,Ellipsis,UserRound,Paperclip,Star,UserPen,Tag,ChevronDown,Asterisk,Cog} from 'lucide-react';
 import CustomHeatmap from '../../../component/CustomHeatmap/CustomHeatmap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const EMPLOYEE_API_URL = 'http://localhost:1323/NhanVien';
 const EMPLOYEE_TYPE_API_URL="http://localhost:1323/LoaiNhanVien";
@@ -23,6 +24,8 @@ const EDUCATION_EMPLOYEE_API_URL="http://localhost:1323/HocVanNhanVien";
 const EmployeeDetail = () => {
 const {id} =useParams();
 const navigate = useNavigate();
+const [edit, setEdit] = useState(false);
+const [editingId, setEditingId] = useState(null); 
 const [employeeInfor, setEmployeeInfo] = useState({});
 const [level,setLevel] =useState([]);
 const [branch,setBranch]=useState([]);
@@ -46,8 +49,8 @@ const [title_employeeData,setTitle_employeeData]=useState({
     NgayBatDau: "",
     NgayKetThuc: "",
 });
-const [educaton_employee,setEducation_Employee]=useState([]);
-const [educaton_employeeData,setEducation_EmployeeData]=useState({
+const [education_employee,setEducation_Employee]=useState([]);
+const [education_employeeData,setEducation_EmployeeData]=useState({
   IDNhanVien:id,
   Truong:"",
   BangCap:"",
@@ -111,7 +114,6 @@ const fetchTitle = async () => {
   try {
     const response = await fetch(TITLE_API_URL);
     const data = await response.json();
-    console.log('Fetched branches:', data); 
     setTitle(data);
   } catch (error) {
     console.error('Error fetching branches:', error);
@@ -121,7 +123,6 @@ const fetchBranches = async () => {
   try {
     const response = await fetch(BRANCH_API_URL);
     const data = await response.json();
-    console.log('Fetched branches:', data); 
     setBranch(data);
   } catch (error) {
     console.error('Error fetching branches:', error);
@@ -248,12 +249,11 @@ const eventclick19=()=>{
 };
 const [data, setData] = useState([]);
 const handleAddRow = () => {
-    const neweducaton_employeeData = [...educaton_employee, {
-      stt: educaton_employee.length + 1,
-      Truong: '',
-      BangCap: '',
-      CapHoc: '',
-      NamTotNghiep: '',
+    const neweducaton_employeeData = [...education_employee, {
+      Truong: "",
+      BangCap: "",
+      CapHoc: "",
+      NamTotNghiep: "",
     }];
     setEducation_Employee(neweducaton_employeeData);
 };
@@ -464,12 +464,25 @@ const handleEditTE = async () => {
     console.log("them",error);
   }
 };
-
-const handleItemChangeEE = (index) => (e) => {
+const openEdit = (id) => {
+  const itemToEdit = education_employee.find(item => item.id === id);
+  setEducation_EmployeeData(itemToEdit);
+  setEditingId(id); 
+  setEdit(true);
+};
+const closeEdit = () => {
+  setEdit(false);
+  setEducation_EmployeeData({Truong:"",
+    BangCap:"",
+    CapHoc:"",
+    NamTotNghiep:""});  
+};
+const handleChangeEE = (e) => {
   const { name, value } = e.target;
-  const updatedEducation = [...educaton_employee];
-  updatedEducation[index][name] = value;
-  setEducation_Employee(updatedEducation);
+  setEducation_EmployeeData(prevData => ({
+      ...prevData,
+      [name]: value
+  }));
 };
 const handleAddEE = async (e) => {
   e.preventDefault();
@@ -479,23 +492,67 @@ const handleAddEE = async (e) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(educaton_employeeData),
+      body: JSON.stringify(education_employeeData),
     });
 
     if (!response.ok) {
       throw new Error('Failed to save education data');
     }
+    fetchEducation_Employee();
     toast.success('Dữ liệu học vấn đã được lưu thành công');
   } catch (error) {
     toast.error(error.message);
     console.log('Error saving education data:', error);
   }
 };
+const handleRemoveEE = async (id) => {
+  if (!id) return; 
+  try {
+      await fetch(`${EDUCATION_EMPLOYEE_API_URL}/${id}`, {
+          method: 'DELETE',
+      });
+      toast.success('Học Vấn đã được xóa thành công!', {
+          position: "top-right",
+      });
+      fetchEducation_Employee(); 
+  } catch (error) {
+      toast.error(error.message, {
+          position: "top-right",
+      });
+  }
+};
+const handleEditEE = async () => {
+  if (!editingId) {
+    alert("Không tìm thấy ID để chỉnh sửa");
+    return; 
+  }
+  try {
+    const response = await fetch(`${EDUCATION_EMPLOYEE_API_URL}/${editingId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(education_employeeData),
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Cập nhật không thành công: ${errorMessage}`);
+    }
+
+    toast.success('Thông tin học vấn nhân viên đã cập nhật', {
+      position: "top-right",
+    });
+    fetchEducation_Employee();
+    closeEdit();
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+  }
+};
 return (
     <div className='employee-detail'>
       <div className="header">
           <div className="header-left">
-              <AlignJustify/> Nhân Viên <ChevronRight/> {employeeInfor.Ho} {employeeInfor.Dem} {employeeInfor.Ten}
+              <AlignJustify/><Link to="/app/employee"> Nhân Viên</Link><ChevronRight/> {employeeInfor.Ho} {employeeInfor.Dem} {employeeInfor.Ten}
           </div>
           <div className="header-right">
               <div className="arrow-left">
@@ -994,34 +1051,48 @@ return (
                           <th>Cấp Học</th>
                           <th>Năm Tốt Nghiệp</th>
                       </tr>
-                      {educaton_employee.map((item, index) => (
+                      {education_employee.map((item, index) => (
                         <tr key={index}>
-                            <td><input  type="checkbox"  checked={selectedItems[index]} onChange={handleItemChange(index)}/>{item.stt}</td>
-                            <td><textarea type="text" value={item.Truong} onChange={(e) => {
-                                const neweducaton_employeeData = [...educaton_employee];
-                                neweducaton_employeeData[index].Truong = e.target.value;
-                                setEducation_Employee(neweducaton_employeeData);
-                                }} /></td>
-                            <td><textarea type="text" value={item.BangCap} onChange={(e) => {
-                                const neweducaton_employeeData = [...educaton_employee];
-                                neweducaton_employeeData[index].BangCap = e.target.value;
-                                setEducation_Employee(neweducaton_employeeData);
-                                }} /></td>
-                            <td><textarea type="text" value={item.CapHoc} onChange={(e) => {
-                                const neweducaton_employeeData = [...educaton_employee];
-                                neweducaton_employeeData[index].CapHoc = e.target.value;
-                                setEducation_Employee(neweducaton_employeeData);
-                                }} /></td>
-                            <td><textarea type="text" value={item.namTotNghiep} onChange={(e) => {
-                                const neweducaton_employeeData = [...educaton_employee];
-                                neweducaton_employeeData[index].NamTotNghiep = e.target.value;
-                                setEducation_Employee(neweducaton_employeeData);
-                                }} /></td>
+                            <td><input  type="checkbox"  checked={selectedItems[index]} onChange={handleItemChange(index)}/>{index+1}</td>
+                            <td><input type="text" name="Truong" value={item.Truong} onChange={handleChangeEE} /></td>
+                            <td><input type="text" name="BangCap" value={item.BangCap} onChange={handleChangeEE} /></td>
+                            <td><input type="text" name="CapHoc" value={item.CapHoc} onChange={handleChangeEE} /></td>
+                            <td><input type="text" name="NamTotNghiep" value={item.NamTotNghiep} onChange={handleChangeEE}/></td>
+                            <td><Cog onClick={() => openEdit(item.id)}/></td>
+                            {edit && editingId === item.id && (
+                        <div className='overlay'>
+                          <div className='insert'>
+                            <div className='insert-insert'>
+                              <div className="title-insert">
+                                Cập Nhật Học Vấn Nhân Viên
+                              </div>
+                              <form onSubmit={handleEditEE}>
+                                <div className="input-insert">
+                                  <div>Tên Trường</div>
+                                  <input type="text" onChange={handleChangeEE} value={education_employeeData.Truong} name="Truong"  required/>
+                                  <div>Tên Tên Bằng Cấp</div>
+                                  <input type="text" onChange={handleChangeEE} value={education_employeeData.BangCap} name="BangCap"  required/>
+                                  <div>Tên Cấp Hoc</div>
+                                  <input type="text" onChange={handleChangeEE} value={education_employeeData.CapHoc} name="CapHoc"  required/>
+                                  <div>Tên Năm Tốt Nghiệp</div>
+                                  <input type="text" onChange={handleChangeEE} value={education_employeeData.NamTotNghiep} name="NamTotNghiep" required/>
+                                </div>
+                                <div className="save">
+                                  <button type="submit">Cập Nhật</button>
+                                  <button type="button" onClick={closeEdit}>X</button>
+                                  <button type="button" onClick={() =>handleRemoveEE(item.id)}>Xóa</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        )}
                         </tr>
+                        
                       ))}
                   </table>
                   <button type="button" className='btn-them' onClick={handleAddRow}>Thêm</button>
-                  <button type="button" className='btn-them' onClick={handleDeleteSelected}>Xóa</button>
+                  {/* <button type="button" className='btn-them' onClick={handleDeleteSelected}>Xóa</button> */}
                   <button type="submit" className='save-part'>Lưu</button>
                   </form>
               </div>

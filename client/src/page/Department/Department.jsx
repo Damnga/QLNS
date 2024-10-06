@@ -265,7 +265,7 @@ const [branches, setBranches] = useState([]);
       </div>
     )}
   </div>
-))}
+        ))}
         </div>
           </div>
       </div>
