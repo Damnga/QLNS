@@ -102,7 +102,7 @@
     display: grid;
     grid-template-columns: repeat(2, 0.5fr);
     gap: 20px;
-    height:150px;
+    height:340px;
     background-color:white;
     margin-right: 20px;
 }
@@ -271,4 +271,13 @@ textarea,select{
     border-radius: 10px;
     margin-top: 10px;
     
+}
+.remove-btn{
+    background-color: red; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
 }

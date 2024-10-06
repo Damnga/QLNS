@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { AlignJustify,ChevronLeft,ChevronRight,Ellipsis,UserRound,Paperclip,Star,UserPen,Tag,ChevronDown,Asterisk} from 'lucide-react';
 import CustomHeatmap from '../../../component/CustomHeatmap/CustomHeatmap';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,37 +14,130 @@ const EMPLOYEE_API_URL = 'http://localhost:1323/NhanVien';
 const EMPLOYEE_TYPE_API_URL="http://localhost:1323/LoaiNhanVien";
 const LEVEL__API_URL ="http://localhost:1323/CapBac";
 const RELATIVE_API_URL="http://localhost:1323/NguoiThanNhanVien";
+const DEPARTMENT_API_URL="http://localhost:1323/PhongBan";
+const TITLE_API_URL="http://localhost:1323/ChucDanh";
+const BRANCH_API_URL="http://localhost:1323/ChiNhanh";
+const TITLE_EMPLOYEE_API_URL ="http://localhost:1323/ChucDanhNhanVien";
+const EDUCATION_EMPLOYEE_API_URL="http://localhost:1323/HocVanNhanVien";
+
 const EmployeeDetail = () => {
 const {id} =useParams();
 const navigate = useNavigate();
 const [employeeInfor, setEmployeeInfo] = useState({});
 const [level,setLevel] =useState([]);
+const [branch,setBranch]=useState([]);
+const [title,setTitle]=useState([]);
+const [department,setDepartment]=useState([]);
 const [employeetype,setEmployeetype]=useState([]);
-// const [employeeRelative, setEmployeeRelative] = useState([]);
+const [selectbranch,setSelectbranch]=useState("");
+const [selectedDepartment, setSelectedDepartment] = useState("");
 const [erelativeData,setErelativeData]=useState({
     IDNhanVien: id,
     TenNguoiThan: "",
     SDTNguoiThan: "",
     QuanHe: "",
-    DiaChiNguoiThan: ""});
+    DiaChiNguoiThan: ""
+});
+const [title_employeeData,setTitle_employeeData]=useState({
+    IDNhanVien: id,
+    IDChucDanh: "",
+    IDPhongBan: "",
+    IDChiNhanh: "",
+    NgayBatDau: "",
+    NgayKetThuc: "",
+});
+const [educaton_employee,setEducation_Employee]=useState([]);
+const [educaton_employeeData,setEducation_EmployeeData]=useState({
+  IDNhanVien:id,
+  Truong:"",
+  BangCap:"",
+  CapHoc:"",
+  NamTotNghiep:""
+});
 useEffect(() => {
     fetchEmployee();
     fetchEmployeeType();
     fetchLevel();
     fetchRelative();
+    fetchBranches();
+    fetchTitle();
+    fetchTitle_Employee();
+    fetchEducation_Employee();
+    handleItemChange();
 }, []);
-const fetchRelative = async () => {
+useEffect(() => {
+  if (selectbranch) {
+    fetchDepartment(selectbranch);
+  } else {
+    setDepartment([]); 
+    setSelectedDepartment("");
+  }
+}, [selectbranch]);
+const fetchEducation_Employee = async () => {
   try {
-    const response = await fetch(`${RELATIVE_API_URL}?IDNhanVien=${id}`);
+    const response = await fetch(`${EDUCATION_EMPLOYEE_API_URL}?IDNhanVien=${id}`);
+    const data = await response.json();
+    if (Array.isArray(data)) {
+        setEducation_Employee(data);
+      } else {
+        setEducation_Employee([]);
+      }
+  } catch (error) {
+    console.error('Error fetching relatives:', error);
+  }
+};
+const fetchTitle_Employee = async () => {
+  try {
+    const response = await fetch(`${TITLE_EMPLOYEE_API_URL}?IDNhanVien=${id}`);
     const data = await response.json();
     if (data && data.length > 0) {
-      setErelativeData(data[0]);
+      setTitle_employeeData({ ...data[0], IDNhanVien: id });
     }
   } catch (error) {
     console.error('Error fetching relatives:', error);
   }
 };
-
+const fetchDepartment = async (ID_ChiNhanh) => {
+  try {
+    const response = await fetch(`${DEPARTMENT_API_URL}?ID_ChiNhanh=${ID_ChiNhanh}`);
+    const data = await response.json();
+    console.log('Fetched branches:', data); 
+    setDepartment(data);
+  } catch (error) {
+    console.error('Error fetching branches:', error);
+  }
+};
+const fetchTitle = async () => {
+  try {
+    const response = await fetch(TITLE_API_URL);
+    const data = await response.json();
+    console.log('Fetched branches:', data); 
+    setTitle(data);
+  } catch (error) {
+    console.error('Error fetching branches:', error);
+  }
+};
+const fetchBranches = async () => {
+  try {
+    const response = await fetch(BRANCH_API_URL);
+    const data = await response.json();
+    console.log('Fetched branches:', data); 
+    setBranch(data);
+  } catch (error) {
+    console.error('Error fetching branches:', error);
+  }
+};
+const fetchRelative = async () => {
+  try {
+    const response = await fetch(`${RELATIVE_API_URL}?IDNhanVien=${id}`);
+    const data = await response.json();
+    if (data && data.length > 0) {
+      setErelativeData({ ...data[0], IDNhanVien: id });
+    }
+  } catch (error) {
+    console.error('Error fetching relatives:', error);
+  }
+};
 const fetchEmployeeType = async () => {
     try {
       const response = await fetch(EMPLOYEE_TYPE_API_URL);
@@ -155,14 +248,14 @@ const eventclick19=()=>{
 };
 const [data, setData] = useState([]);
 const handleAddRow = () => {
-    const newData = [...data, {
-      stt: data.length + 1,
-      truong: '',
-      bangCap: '',
-      capHoc: '',
-      namTotNghiep: '',
+    const neweducaton_employeeData = [...educaton_employee, {
+      stt: educaton_employee.length + 1,
+      Truong: '',
+      BangCap: '',
+      CapHoc: '',
+      NamTotNghiep: '',
     }];
-    setData(newData);
+    setEducation_Employee(neweducaton_employeeData);
 };
 const [selectAll, setSelectAll] = useState(false);
 const [selectedItems, setSelectedItems] = useState(data.map(() => false));
@@ -180,9 +273,9 @@ const handleItemChange = (index) => (event) => {
       setSelectAll(allChecked);
 };
 const handleDeleteSelected = () => {
-    const newData = data.filter((_, index) => !selectedItems[index]);
+    const newData = educaton_employee.filter((_, index) => !selectedItems[index]);
         const updatedData = newData.map((item, index) => ({ ...item, stt: index + 1 }));
-        setData(updatedData);
+        setEducation_Employee(updatedData);
         setSelectedItems(updatedData.map(() => false));
         setSelectAll(false);
 };
@@ -194,6 +287,7 @@ const handleChange = (e) => {
     }));
 };
 const handleSave = async () => {
+  e.preventDefault();
     try {
         const response = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
             method: 'PUT', // Hoặc 'PATCH' nếu bạn chỉ muốn cập nhật một số trường
@@ -220,44 +314,36 @@ const drop =()=>{
 };
 const handleDelete = async () => {
   try {
-      const response = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
+      const employeeResponse = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
           method: 'DELETE',
       });
-
-      if (!response.ok) {
+      await handleDeleteER();
+      if (!employeeResponse.ok) {
           throw new Error('Failed to delete employee');
       }
-
-      toast.success('Nhân viên đã được xóa thành công');
-      navigate('/app/employee'); // Chuyển hướng về danh sách nhân viên
+      toast.success('Nhân viên và người thân của nhân viên đã được xóa thành công');
+      navigate("/app/employee");
   } catch (error) {
       toast.error(error.message);
       console.log("Error deleting employee:", error);
   }
 };
-const handleChangeER = (e) => {
-  const { name, value } = e.target;
-  setErelativeData(prevData => ({
-      ...prevData,
-      [name]: value
-  }));
-};
+
 const handleSaveER = async (e) => {
   e.preventDefault();
-  if (erelativeData.IDNhanVien === id) {
+  if (erelativeData.id) {
     await handleEditER();
   } else {
     await handleAddER();
   }
 };
-
 const handleAddER = async () => {
   try {
-    const newNhomnhanvien = { ...erelativeData };
-    await fetch(`${RELATIVE_API_URL}/${erelativeData.IDNhanVien}`, {
+    const newerelativeData = { ...erelativeData };
+    await fetch(`${RELATIVE_API_URL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newNhomnhanvien),
+      body: JSON.stringify(newerelativeData),
     });
     toast.success('Nhóm Nhân viên mới đã được tạo thành công!', {
       position: "top-right",
@@ -269,10 +355,9 @@ const handleAddER = async () => {
     });
   }
 };
-
 const handleEditER = async () => {
   try {
-    const response = await fetch(`${RELATIVE_API_URL}/${erelativeData.IDNhanVien}`, {
+    const response = await fetch(`${RELATIVE_API_URL}/${erelativeData.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -283,11 +368,9 @@ const handleEditER = async () => {
     if (!response.ok) {
       throw new Error('Failed to update employee relative information');
     }
-
     toast.success('Thông tin người thân nhân viên đã được cập nhật', {
       position: "top-right",
     });
-
     fetchRelative();
   } catch (error) {
     toast.error(error.message, {
@@ -295,7 +378,120 @@ const handleEditER = async () => {
     });
   }
 };
-  return (
+const handleDeleteER = async () => {
+  if (!erelativeData.id) { 
+      toast.error('ID người thân không hợp lệ');
+      return;
+  }
+  try {
+      const response = await fetch(`${RELATIVE_API_URL}/${erelativeData.id}`, {
+          method: 'DELETE',
+      });
+
+      if (!response.ok) {
+          throw new Error('Xóa người thân không thành công');
+      }
+      toast.success('Người Thân Nhân viên đã được xóa thành công');
+      fetchRelative();
+  } catch (error) {
+      toast.error(error.message);
+      console.log("Error deleting relative:", error);
+  }
+};
+
+const handleBranchChange = (e) => {
+  setSelectbranch(e.target.value);
+  setSelectedDepartment(""); 
+  setTitle_employeeData({...title_employeeData,IDChiNhanh: e.target.value})
+};
+const handleDepartmentChange = (e) => {
+  if (!selectbranch) {
+    toast.error('Vui lòng chọn chi nhánh trước!');
+    e.target.value = "";
+    return;
+  }
+  setTitle_employeeData({...title_employeeData,IDPhongBan:e.target.value})
+  setSelectedDepartment(e.target.value);
+};
+const handleSaveTE = async (e) => {
+  e.preventDefault();
+  if (title_employeeData.id) {
+    await handleEditTE();
+  } else {
+    await handleAddTE();
+  }
+};
+const handleAddTE = async () => {
+  try {
+    const newtitle_employeeData = { ...title_employeeData };
+    await fetch(`${TITLE_EMPLOYEE_API_URL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newtitle_employeeData),
+    });
+    toast.success('Chức Danh Nhân viên mới đã được tạo thành công!', {
+      position: "top-right",
+    });
+    fetchTitle_Employee(); 
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+    console.log("them",error);
+  }
+};
+const handleEditTE = async () => {
+  try {
+    const response = await fetch(`${TITLE_EMPLOYEE_API_URL}/${title_employeeData.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(title_employeeData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update title employee information');
+    }
+    toast.success('Thông tin chức danh nhân viên đã được cập nhật', {
+      position: "top-right",
+    });
+    fetchTitle_Employee();
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+    console.log("them",error);
+  }
+};
+
+const handleItemChangeEE = (index) => (e) => {
+  const { name, value } = e.target;
+  const updatedEducation = [...educaton_employee];
+  updatedEducation[index][name] = value;
+  setEducation_Employee(updatedEducation);
+};
+const handleAddEE = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch(`${EDUCATION_EMPLOYEE_API_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(educaton_employeeData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to save education data');
+    }
+    toast.success('Dữ liệu học vấn đã được lưu thành công');
+  } catch (error) {
+    toast.error(error.message);
+    console.log('Error saving education data:', error);
+  }
+};
+return (
     <div className='employee-detail'>
       <div className="header">
           <div className="header-left">
@@ -408,7 +604,7 @@ const handleEditER = async () => {
                   {level.map(item => (
                     <option key={item.id} value={item.id}>{item.CapBac}</option>
                   ))}
-                </select>
+          </select>
         </div>
         <div className="input-group">
           <div className='input-title'>Sdt</div>
@@ -450,27 +646,30 @@ const handleEditER = async () => {
                 Liên Lạc Khẩn Cấp <ChevronDown className='icon' onClick={eventclick2}/>
               </div>
               {click2 &&(
+                <div>
                 <form onSubmit={handleSaveER}>
                 <div className="input-content2" >
                   <div class="input-group">
                       <div className='input-title'>Tên Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' name="TenNguoiThan" onChange={handleChangeER} value={erelativeData.TenNguoiThan}  type="text"  />
+                      <input className='input-option' name="TenNguoiThan" onChange={(e) => setErelativeData({ ...erelativeData, TenNguoiThan: e.target.value })} value={erelativeData.TenNguoiThan}  type="text"  />
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Số Điện Thoại Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' name="SDTNguoiThan"  onChange={handleChangeER} value={erelativeData.SDTNguoiThan} type="text" />
+                      <input className='input-option' name="SDTNguoiThan"  onChange={(e) => setErelativeData({ ...erelativeData, SDTNguoiThan: e.target.value })} value={erelativeData.SDTNguoiThan} type="text" />
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Địa Chỉ  Người Liên Lạc Khẩn Cấp </div>
-                      <input className='input-option' name="DiaChiNguoiThan" onChange={handleChangeER} value={erelativeData.DiaChiNguoiThan} type="text" />
+                      <input className='input-option' name="DiaChiNguoiThan" onChange={(e) => setErelativeData({ ...erelativeData, DiaChiNguoiThan: e.target.value })} value={erelativeData.DiaChiNguoiThan} type="text" />
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Mối Quan Hệ Với Người Liên Lạc Khẩn Cấp</div>
-                      <input className='input-option' name="QuanHe"  onChange={handleChangeER} value={erelativeData.QuanHe} type="text"  />
+                      <input className='input-option' name="QuanHe"  onChange={(e) => setErelativeData({ ...erelativeData, QuanHe: e.target.value })} value={erelativeData.QuanHe} type="text"  />
                   </div>
                   <button type="submit" className='save-part'>Lưu</button>
                 </div>
                 </form>
+                <button onClick={handleDeleteER} className='remove-btn'>Xóa</button>
+                </div>
               )}
           </div>
           <div className="personal-infor">
@@ -494,26 +693,55 @@ const handleEditER = async () => {
                 Bộ Phận và Cấp Bậc<ChevronDown className='icon'onClick={eventclick4}/>
               </div>
               {click4 &&(
+                <form onSubmit={handleSaveTE}>
                 <div className="input-content4" >
-                  
                   <div class="input-group">
-                      <div className='input-title'>Phòng Ban</div>
-                      <input className='input-option' type="text"  />
+                      <div className='input-title'>Chức Danh</div>
+                      <select name="IDChucDanh" onChange={(e)=>setTitle_employeeData({...title_employeeData,IDChucDanh:e.target.value})} value={title_employeeData.IDChucDanh} >
+                            <option value="">Chọn Chức Danh</option>
+                            {title.map(item => (
+                            <option key={item.id} value={item.id}>{item.ChucDanh}</option>
+                            ))}
+                      </select>
                   </div>
                   <div class="input-group">
                       <div className='input-title'>Cấp Bậc</div>
-                      <input className='input-option' type="text" />
+                      <select name="ID_CapBac" value={employeeInfor.ID_CapBac} onChange={handleChange}>
+                            <option value="">Chọn Cấp Bậc</option>
+                            {level.map(item => (
+                            <option key={item.id} value={item.id}>{item.CapBac}</option>
+                            ))}
+                      </select>
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Chức Danh</div>
-                      <input className='input-option' type="text"  />
+                    <div className='input-title'>Chi Nhánh</div>
+                      <select name="IDChiNhanh" onChange={handleBranchChange} value={title_employeeData.IDChiNhanh}>
+                            <option value="">Chọn Chi Nhánh</option>
+                            {branch.map(item => (
+                            <option key={item.id} value={item.id}>{item.ChiNhanh}</option>
+                            ))}
+                      </select>
+                    </div>
+                  <div class="input-group">
+                      <div className='input-title'>Phòng Ban</div>
+                      <select name="IDPhongBan" value={selectedDepartment} onChange={handleDepartmentChange } >
+                            <option value="">Chọn Phòng Ban</option>
+                            {department.map(item => (
+                            <option key={item.id} value={item.id}>{item.PhongBan}</option>
+                            ))}
+                      </select>
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Chi Nhánh</div>
-                      <input className='input-option' type="text" />
+                      <div className='input-title'>Ngày Bắt Đầu </div>
+                      <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayBatDau:e.target.value})} value={title_employeeData.NgayBatDau} />
                   </div>
-                  <button className='save-part'>Lưu</button>
+                  <div class="input-group">
+                      <div className='input-title'>Ngày Kết Thúc</div>
+                      <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayKetThuc:e.target.value})} value={title_employeeData.NgayKetThuc} />
+                  </div>
+                  <button type="submit" className='save-part'>Lưu</button><button onClick={handleDeleteER} className='remove-btn'>Xóa</button>
                 </div>
+                </form>
               )}
           </div>
           <div className='personal-infor'>
@@ -757,45 +985,45 @@ const handleEditER = async () => {
               </div>
               {click12 &&(
                 <div className="input-content15" >
+                  <form onSubmit={handleAddEE}>
                 <table>
                       <tr>
-                          <th><input type="checkbox"  checked={selectAll} 
-                      onChange={handleSelectAllChange}/>STT</th>
+                          <th><input type="checkbox"  checked={selectAll} onChange={handleSelectAllChange}/>STT</th>
                           <th>Trường/Đại Học</th>
                           <th>Bằng Cấp Chứng Chỉ</th>
                           <th>Cấp Học</th>
                           <th>Năm Tốt Nghiệp</th>
                       </tr>
-                      {data.map((item, index) => (
+                      {educaton_employee.map((item, index) => (
                         <tr key={index}>
-                            <td><input  type="checkbox"  checked={selectedItems[index]} 
-                          onChange={handleItemChange(index)}/>{item.stt}</td>
-                            <td><textarea type="text" value={item.truong} onChange={(e) => {
-                                const newData = [...data];
-                                newData[index].truong = e.target.value;
-                                setData(newData);
+                            <td><input  type="checkbox"  checked={selectedItems[index]} onChange={handleItemChange(index)}/>{item.stt}</td>
+                            <td><textarea type="text" value={item.Truong} onChange={(e) => {
+                                const neweducaton_employeeData = [...educaton_employee];
+                                neweducaton_employeeData[index].Truong = e.target.value;
+                                setEducation_Employee(neweducaton_employeeData);
                                 }} /></td>
-                            <td><textarea type="text" value={item.bangCap} onChange={(e) => {
-                                const newData = [...data];
-                                newData[index].bangCap = e.target.value;
-                                setData(newData);
+                            <td><textarea type="text" value={item.BangCap} onChange={(e) => {
+                                const neweducaton_employeeData = [...educaton_employee];
+                                neweducaton_employeeData[index].BangCap = e.target.value;
+                                setEducation_Employee(neweducaton_employeeData);
                                 }} /></td>
-                            <td><textarea type="text" value={item.capHoc} onChange={(e) => {
-                                const newData = [...data];
-                                newData[index].capHoc = e.target.value;
-                                setData(newData);
+                            <td><textarea type="text" value={item.CapHoc} onChange={(e) => {
+                                const neweducaton_employeeData = [...educaton_employee];
+                                neweducaton_employeeData[index].CapHoc = e.target.value;
+                                setEducation_Employee(neweducaton_employeeData);
                                 }} /></td>
                             <td><textarea type="text" value={item.namTotNghiep} onChange={(e) => {
-                                const newData = [...data];
-                                newData[index].namTotNghiep = e.target.value;
-                                setData(newData);
+                                const neweducaton_employeeData = [...educaton_employee];
+                                neweducaton_employeeData[index].NamTotNghiep = e.target.value;
+                                setEducation_Employee(neweducaton_employeeData);
                                 }} /></td>
                         </tr>
                       ))}
                   </table>
-                  <button className='btn-them' onClick={handleAddRow}>Thêm</button>
-                  <button className='btn-them' onClick={handleDeleteSelected}>Xóa</button>
-                  <button className='save-part'>Lưu</button>
+                  <button type="button" className='btn-them' onClick={handleAddRow}>Thêm</button>
+                  <button type="button" className='btn-them' onClick={handleDeleteSelected}>Xóa</button>
+                  <button type="submit" className='save-part'>Lưu</button>
+                  </form>
               </div>
               )}
           </div>
@@ -814,7 +1042,7 @@ const handleEditER = async () => {
                           <th>Cấp Học</th>
                           <th>Năm Tốt Nghiệp</th>
                       </tr>
-                      {data.map((item, index) => (
+                      {educaton_employee.map((item, index) => (
                         <tr key={index}>
                             <td><input  type="checkbox"  checked={selectedItems[index]} 
                           onChange={handleItemChange(index)}/>{item.stt}</td>
@@ -997,8 +1225,9 @@ const handleEditER = async () => {
               )}
           </div>
         </div>
-    </div>
       </div>
+      <ToastContainer />
+    </div>
   )
 }
 

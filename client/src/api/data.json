@@ -1,39 +1,7 @@
 {
   "NhanVien": [
     {
-      "id": "5424",
-      "Ten": "nga",
-      "Dem": "thị",
-      "Ho": "Đàm",
-      "Email": "hgtrehh",
-      "ID_LoaiNhanVien": "",
-      "ID_CapBac": "",
-      "NgayBatDau": "",
-      "NgayKetThuc": "",
-      "GioiTinh": "nữ",
-      "Sdt": "nrgngn",
-      "DiaChi": "ynyntyn",
-      "CCCD": "12345",
-      "NgaySinh": ""
-    },
-    {
-      "id": "26a1",
-      "Ten": "nga",
-      "Dem": "thị",
-      "Ho": "Đàm",
-      "Email": "hgtrehh",
-      "ID_LoaiNhanVien": "",
-      "ID_CapBac": "",
-      "NgayBatDau": "",
-      "NgayKetThuc": "",
-      "GioiTinh": "nữ",
-      "Sdt": "nrgngn",
-      "DiaChi": "ynyntyn",
-      "CCCD": "ynytntyjnyt",
-      "NgaySinh": ""
-    },
-    {
-      "id": "9506",
+      "id": "25ed",
       "Ten": "nga",
       "Dem": "thị",
       "Ho": "Đàm",
@@ -51,32 +19,24 @@
   ],
   "HocVanNhanVien": [
     {
-      "IDNhanVien": "",
+      "id": "21b7",
+      "IDNhanVien": "25ed",
+      "Truong": "",
+      "BangCap": "",
+      "CapHoc": "",
+      "NamTotNghiep": ""
+    },
+    {
+      "id": "b23e",
+      "IDNhanVien": "25ed",
       "Truong": "",
       "BangCap": "",
       "CapHoc": "",
       "NamTotNghiep": ""
     }
   ],
-  "NguoiThanNhanVien": [
-    {
-      "IDNhanVien": "",
-      "TenNguoiThan": "",
-      "SDTNguoiThan": "",
-      "QuanHe": "",
-      "DiaChiNguoiThan": ""
-    }
-   
-  ],
-  "ChucDanhNhanVien": [
-    {
-      "IDNhanVien": "",
-      "IDChucDanh": "",
-      "IDPhongBan": "",
-      "NgayBatDau": "",
-      "NgayKetThuc": ""
-    }
-  ],
+  "NguoiThanNhanVien": [],
+  "ChucDanhNhanVien": [],
   "LoaiNhanVien": [
     {
       "ID": "002",
@@ -90,6 +50,10 @@
     {
       "id": "2d6f",
       "LoaiNhanVien": "hjkhpiohpiok"
+    },
+    {
+      "id": "d33c",
+      "LoaiNhanVien": "hgmghkmhkj"
     }
   ],
   "ChiNhanh": [
@@ -107,39 +71,9 @@
       "ID": "003",
       "ChiNhanh": "Hải Phòng",
       "id": "a080"
-    },
-    {
-      "ID": "004",
-      "ChiNhanh": "Đà hdtheh",
-      "id": "7a98"
     }
   ],
   "PhongBan": [
-    {
-      "ID": "001",
-      "PhongBan": "Kinh doanh",
-      "id": "5dc3"
-    },
-    {
-      "ID": "002",
-      "PhongBan": "Nhân sự",
-      "id": "4626"
-    },
-    {
-      "ID": "003",
-      "PhongBan": "Kế toán",
-      "id": "2905"
-    },
-    {
-      "ID": "004",
-      "PhongBan": "Marketing",
-      "id": "70ad"
-    },
-    {
-      "ID": "005",
-      "PhongBan": "Công nghệ thông tin",
-      "id": "8e53"
-    },
     {
       "ID": "006",
       "PhongBan": "Phát triển sản phẩm",
@@ -147,70 +81,10 @@
       "ID_ChiNhanh": "7a98"
     },
     {
-      "ID": "007",
-      "PhongBan": "Dịch vụ khách hàng",
-      "id": "d91f"
-    },
-    {
-      "ID": "008",
-      "PhongBan": "Quản lý dự án",
-      "id": "438d"
-    },
-    {
-      "ID": "009",
-      "PhongBan": "Hành chính",
-      "id": "365c"
-    },
-    {
-      "ID": "010",
-      "PhongBan": "Mua sắm",
-      "id": "5136"
-    },
-    {
-      "ID": "011",
-      "PhongBan": "Quản lý chất lượng",
-      "id": "4705"
-    },
-    {
       "ID": "012",
       "PhongBan": "Truyền thông",
       "id": "5166",
       "ID_ChiNhanh": "fd3e"
-    },
-    {
-      "ID": "013",
-      "PhongBan": "Đào tạo",
-      "id": "4f98"
-    },
-    {
-      "ID": "014",
-      "PhongBan": "Phát triển kinh doanh",
-      "id": "d9d8"
-    },
-    {
-      "ID": "015",
-      "PhongBan": "Nghiên cứu ",
-      "id": "382d"
-    },
-    {
-      "ID": "016",
-      "PhongBan": "Sản xuất",
-      "id": "628d"
-    },
-    {
-      "ID": "017",
-      "PhongBan": "IT hỗ trợ",
-      "id": "99e8"
-    },
-    {
-      "ID": "018",
-      "PhongBan": "Thiết kế",
-      "id": "bdc8"
-    },
-    {
-      "ID": "019",
-      "PhongBan": "An ninh mạng",
-      "id": "d244"
     }
   ],
   "ChucDanh": [
