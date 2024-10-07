@@ -91,8 +91,6 @@ const [branches, setBranches] = useState([]);
       [name]: value
     }));
   };
-
- 
   const handleSave = async () => {
     try {
       const newDepartment = {
@@ -210,7 +208,7 @@ const [branches, setBranches] = useState([]);
       </div>
     </div>
   </div>
-)}
+              )}
               <div className="branch-filter">
                   <button className='branch-filter-coponent'><Filter className="filter-icon"/><span>Bộ Lọc</span></button>
                   <button className='branch-filter-coponent'><div className="filter-icon"/><span>Tác Vụ</span></button>

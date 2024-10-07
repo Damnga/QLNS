@@ -138,6 +138,7 @@ const EmployeeLevel = () => {
         position: "top-right",
       });
       fetchLevel(); 
+      closeEdit();
     } catch (error) {
       toast.error(error.message, {
         position: "top-right",

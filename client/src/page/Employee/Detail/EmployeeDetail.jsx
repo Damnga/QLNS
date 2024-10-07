@@ -25,7 +25,11 @@ const EmployeeDetail = () => {
 const {id} =useParams();
 const navigate = useNavigate();
 const [edit, setEdit] = useState(false);
+const [insert, setInsert] = useState(false);
 const [editingId, setEditingId] = useState(null); 
+const [editTE, setEditTE] = useState(false);
+const [insertTE, setInsertTE] = useState(false);
+const [editingIdTE, setEditingIdTE] = useState(null); 
 const [employeeInfor, setEmployeeInfo] = useState({});
 const [level,setLevel] =useState([]);
 const [branch,setBranch]=useState([]);
@@ -41,6 +45,7 @@ const [erelativeData,setErelativeData]=useState({
     QuanHe: "",
     DiaChiNguoiThan: ""
 });
+const [title_employee,setTitle_employee]=useState([]);
 const [title_employeeData,setTitle_employeeData]=useState({
     IDNhanVien: id,
     IDChucDanh: "",
@@ -93,8 +98,10 @@ const fetchTitle_Employee = async () => {
   try {
     const response = await fetch(`${TITLE_EMPLOYEE_API_URL}?IDNhanVien=${id}`);
     const data = await response.json();
-    if (data && data.length > 0) {
-      setTitle_employeeData({ ...data[0], IDNhanVien: id });
+    if (Array.isArray(data)) {
+      setTitle_employee(data);
+    } else {
+      etTitle_employee([]);
     }
   } catch (error) {
     console.error('Error fetching relatives:', error);
@@ -328,7 +335,41 @@ const handleDelete = async () => {
       console.log("Error deleting employee:", error);
   }
 };
+const handleBranchChange = (e) => {
+  setSelectbranch(e.target.value);
+  setSelectedDepartment(""); 
+  setTitle_employeeData({...title_employeeData,IDChiNhanh: e.target.value})
+};
+const handleDepartmentChange = (e) => {
+  if (!selectbranch) {
+    toast.error('Vui lòng chọn chi nhánh trước!');
+    e.target.value = "";
+    return;
+  }
+  setTitle_employeeData({...title_employeeData,IDPhongBan:e.target.value})
+  setSelectedDepartment(e.target.value);
+};
+const getBranchNameById = (id) => {
+  const branc = branch.find(item => item.id === id);
+  return branc ? branc.ChiNhanh : '';
+};
+const getDepartmenthNameById = (id) => {
+  const branch = department.find(branch => branch.id === id);
+  return branch ? branch.PhongBan : '';
+};
+const getTitleNameById = (id) => {
+  const branch = title.find(branch => branch.id === id);
+  return branch ? branch.ChucDanh : '';
+};
 
+
+const handleChangeER = (e) => {
+  const { name, value } = e.target;
+  setTitle_employeeData(prevData => ({
+      ...prevData,
+      [name]: value
+  }));
+};
 const handleSaveER = async (e) => {
   e.preventDefault();
   if (erelativeData.id) {
@@ -399,19 +440,37 @@ const handleDeleteER = async () => {
   }
 };
 
-const handleBranchChange = (e) => {
-  setSelectbranch(e.target.value);
-  setSelectedDepartment(""); 
-  setTitle_employeeData({...title_employeeData,IDChiNhanh: e.target.value})
+const openEditTE = (id) => {
+  const itemToEdit = title_employee.find(item => item.id === id);
+  setTitle_employeeData(itemToEdit);
+  setEditingIdTE(id); 
+  setEditTE(true);
 };
-const handleDepartmentChange = (e) => {
-  if (!selectbranch) {
-    toast.error('Vui lòng chọn chi nhánh trước!');
-    e.target.value = "";
-    return;
-  }
-  setTitle_employeeData({...title_employeeData,IDPhongBan:e.target.value})
-  setSelectedDepartment(e.target.value);
+const closeEditTE = () => {
+  setEditTE(false);
+  setTitle_employeeData({IDChucDanh: "",
+    IDPhongBan: "",
+    IDChiNhanh: "",
+    NgayBatDau: "",
+    NgayKetThuc: "",});  
+};
+const openInsertTE = () => {
+  setInsertTE(true);
+};
+const closeInsertTE = () => {
+  setInsertTE(false);
+  setTitle_employeeData({IDChucDanh: "",
+    IDPhongBan: "",
+    IDChiNhanh: "",
+    NgayBatDau: "",
+    NgayKetThuc: "",});  
+};
+const handleChangeTE = (e) => {
+  const { name, value } = e.target;
+  setTitle_employeeData(prevData => ({
+      ...prevData,
+      [name]: value
+  }));
 };
 const handleSaveTE = async (e) => {
   e.preventDefault();
@@ -433,6 +492,7 @@ const handleAddTE = async () => {
       position: "top-right",
     });
     fetchTitle_Employee(); 
+    closeInsertTE();
   } catch (error) {
     toast.error(error.message, {
       position: "top-right",
@@ -440,7 +500,8 @@ const handleAddTE = async () => {
     console.log("them",error);
   }
 };
-const handleEditTE = async () => {
+const handleEditTE = async (e) => {
+  e.preventDefault();
   try {
     const response = await fetch(`${TITLE_EMPLOYEE_API_URL}/${title_employeeData.id}`, {
       method: 'PUT',
@@ -457,6 +518,7 @@ const handleEditTE = async () => {
       position: "top-right",
     });
     fetchTitle_Employee();
+    closeEditTE();
   } catch (error) {
     toast.error(error.message, {
       position: "top-right",
@@ -464,6 +526,24 @@ const handleEditTE = async () => {
     console.log("them",error);
   }
 };
+const handleDeleteTE = async (id) => {
+  if (!id) return; 
+  try {
+      await fetch(`${TITLE_EMPLOYEE_API_URL}/${id}`, {
+          method: 'DELETE',
+      });
+      toast.success('bộ phận và cấp bậc đã được xóa thành công!', {
+          position: "top-right",
+      });
+      fetchTitle_Employee(); 
+      closeEditTE();
+  } catch (error) {
+      toast.error(error.message, {
+          position: "top-right",
+      });
+  }
+};
+
 const openEdit = (id) => {
   const itemToEdit = education_employee.find(item => item.id === id);
   setEducation_EmployeeData(itemToEdit);
@@ -476,6 +556,16 @@ const closeEdit = () => {
     BangCap:"",
     CapHoc:"",
     NamTotNghiep:""});  
+};
+const openInsert = () => {
+  setInsert(true);
+};
+const closeInsert = () => {
+  setInsert(false);
+  setEducation_EmployeeData({Truong:"",
+    BangCap:"",
+    CapHoc:"",
+    NamTotNghiep:""}); 
 };
 const handleChangeEE = (e) => {
   const { name, value } = e.target;
@@ -499,6 +589,7 @@ const handleAddEE = async (e) => {
       throw new Error('Failed to save education data');
     }
     fetchEducation_Employee();
+    closeInsert();
     toast.success('Dữ liệu học vấn đã được lưu thành công');
   } catch (error) {
     toast.error(error.message);
@@ -521,9 +612,9 @@ const handleRemoveEE = async (id) => {
       });
   }
 };
-const handleEditEE = async () => {
+const handleEditEE = async (e) => {
+  e.preventDefault();
   if (!editingId) {
-    alert("Không tìm thấy ID để chỉnh sửa");
     return; 
   }
   try {
@@ -750,55 +841,128 @@ return (
                 Bộ Phận và Cấp Bậc<ChevronDown className='icon'onClick={eventclick4}/>
               </div>
               {click4 &&(
-                <form onSubmit={handleSaveTE}>
-                <div className="input-content4" >
-                  <div class="input-group">
-                      <div className='input-title'>Chức Danh</div>
-                      <select name="IDChucDanh" onChange={(e)=>setTitle_employeeData({...title_employeeData,IDChucDanh:e.target.value})} value={title_employeeData.IDChucDanh} >
-                            <option value="">Chọn Chức Danh</option>
-                            {title.map(item => (
-                            <option key={item.id} value={item.id}>{item.ChucDanh}</option>
-                            ))}
-                      </select>
+                <div className="input-content15" >
+                  <form onSubmit={handleAddTE}>
+                <table>
+                      <tr>
+                          <th>STT</th>
+                          <th>Chi Nhánh</th>
+                          <th>Phòng Ban</th>
+                          <th>Chức Danh</th>
+                          <th>Ngày Bắt Đầu</th>
+                          <th>Ngày Kết Thúc</th>
+                      </tr>
+                      {title_employee.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{index+1}</td>
+                            <td>{getBranchNameById(item.IDChiNhanh)}</td>
+                            <td>{getDepartmenthNameById(item.IDPhongBan)}</td>
+                            <td>{getTitleNameById(item.IDChucDanh)}</td>
+                            <td>{item.NgayBatDau}</td>
+                            <td>{item.NgayKetThuc}</td>
+                            <td><Cog onClick={()=>openEditTE(item.id)}/></td>
+                            {editTE && editingIdTE === item.id && (
+                        <div className='overlay'>
+                          <div className='insert'>
+                            <div className='insert-insert'>
+                              <div className="title-insert">
+                                Cập Nhật Bộ Phận và Cấp Bậc
+                              </div>
+                              <form >
+                                <div className="input-insert">
+                                  <div>Chi Nhánh</div>
+                                  <select name="IDChiNhanh" onChange={handleBranchChange} value={title_employeeData.IDChiNhanh}>
+                                    <option value="">Chọn Chi Nhánh</option>
+                                    {branch.map(item => (
+                                    <option key={item.id} value={item.id}>{item.ChiNhanh}</option>
+                                    ))}
+                                  </select>
+
+                                  <div>Phòng Ban</div>
+                                  <select name="IDPhongBan" value={selectedDepartment} onChange={handleDepartmentChange } >
+                                    <option value="">Chọn Phòng Ban</option>
+                                    {department.map(item => (
+                                    <option key={item.id} value={item.id}>{item.PhongBan}</option>
+                                    ))}
+                                  </select>
+
+                                  <div>Chức Danh</div>
+                                  <select name="IDChucDanh" onChange={(e)=>setTitle_employeeData({...title_employeeData,IDChucDanh:e.target.value})} value={title_employeeData.IDChucDanh} >
+                                    <option value="">Chọn Chức Danh</option>
+                                    {title.map(item => (
+                                    <option key={item.id} value={item.id}>{item.ChucDanh}</option>
+                                    ))}
+                                  </select>
+
+                                  <div>Ngày Bắt Đầu</div>
+                                  <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayBatDau:e.target.value})} value={title_employeeData.NgayBatDau} />
+                                  <div>Ngày Kết Thúc</div>
+                                  <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayKetThuc:e.target.value})} value={title_employeeData.NgayKetThuc} />
+                                </div>
+                                <div className="save">
+                                  <button  onClick={handleEditTE}>Cập Nhật</button>
+                                  <button type="button" onClick={closeEditTE}>X</button>
+                                  <button type="button" onClick={() =>handleDeleteTE(item.id)}>Xóa</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                            )}
+                        </tr>
+                      ))}
+                  </table>
+                  <button type="button" className='btn-them' onClick={openInsertTE}>Thêm</button>
+                  </form>
+              </div>
+              )}
+              {insertTE && (
+              <div className='overlay'>
+                  <div className='employee-type-insert'>
+                      <div className='employee-type-insert-insert'>
+                        <div className="employee-type-title-insert">
+                            Thêm Bộ Phận và Cấp Bậc
+                        </div>
+                        <div className="employee-type-input-insert">
+                            <form onSubmit={handleAddTE}>
+                              <div className='input-title'>Chức Danh</div>
+                              <select name="IDChucDanh" onChange={(e)=>setTitle_employeeData({...title_employeeData,IDChucDanh:e.target.value})} value={title_employeeData.IDChucDanh} >
+                                <option value="">Chọn Chức Danh</option>
+                                  {title.map(item => (
+                                <option key={item.id} value={item.id}>{item.ChucDanh}</option>
+                                  ))}
+                              </select>
+                              
+                              <div className='input-title'>Chi Nhánh</div>
+                              <select name="IDChiNhanh" onChange={handleBranchChange} value={title_employeeData.IDChiNhanh}>
+                                <option value="">Chọn Chi Nhánh</option>
+                                {branch.map(item => (
+                                <option key={item.id} value={item.id}>{item.ChiNhanh}</option>
+                                ))}
+                              </select>
+
+                              <div className='input-title'>Phòng Ban</div>
+                              <select name="IDPhongBan" value={selectedDepartment} onChange={handleDepartmentChange } >
+                                <option value="">Chọn Phòng Ban</option>
+                                {department.map(item => (
+                                <option key={item.id} value={item.id}>{item.PhongBan}</option>
+                                ))}
+                              </select>
+
+                              <div className='input-title'>Ngày Bắt Đầu </div>
+                              <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayBatDau:e.target.value})} value={title_employeeData.NgayBatDau} />
+                            
+                              <div className='input-title'>Ngày Kết Thúc</div>
+                              <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayKetThuc:e.target.value})} value={title_employeeData.NgayKetThuc} />
+                            </form>
+                        </div>
+                        <div className="employee-type-save">
+                          <button onClick={handleAddTE}>Lưu</button>
+                          <button onClick={closeInsertTE}>X</button>
+                        </div>
+                      </div>
                   </div>
-                  <div class="input-group">
-                      <div className='input-title'>Cấp Bậc</div>
-                      <select name="ID_CapBac" value={employeeInfor.ID_CapBac} onChange={handleChange}>
-                            <option value="">Chọn Cấp Bậc</option>
-                            {level.map(item => (
-                            <option key={item.id} value={item.id}>{item.CapBac}</option>
-                            ))}
-                      </select>
-                  </div>
-                  <div class="input-group">
-                    <div className='input-title'>Chi Nhánh</div>
-                      <select name="IDChiNhanh" onChange={handleBranchChange} value={title_employeeData.IDChiNhanh}>
-                            <option value="">Chọn Chi Nhánh</option>
-                            {branch.map(item => (
-                            <option key={item.id} value={item.id}>{item.ChiNhanh}</option>
-                            ))}
-                      </select>
-                    </div>
-                  <div class="input-group">
-                      <div className='input-title'>Phòng Ban</div>
-                      <select name="IDPhongBan" value={selectedDepartment} onChange={handleDepartmentChange } >
-                            <option value="">Chọn Phòng Ban</option>
-                            {department.map(item => (
-                            <option key={item.id} value={item.id}>{item.PhongBan}</option>
-                            ))}
-                      </select>
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Ngày Bắt Đầu </div>
-                      <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayBatDau:e.target.value})} value={title_employeeData.NgayBatDau} />
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Ngày Kết Thúc</div>
-                      <input className='input-option' type="date" onChange={(e)=>setTitle_employeeData({...title_employeeData,NgayKetThuc:e.target.value})} value={title_employeeData.NgayKetThuc} />
-                  </div>
-                  <button type="submit" className='save-part'>Lưu</button><button onClick={handleDeleteER} className='remove-btn'>Xóa</button>
-                </div>
-                </form>
+              </div>
               )}
           </div>
           <div className='personal-infor'>
@@ -1045,20 +1209,20 @@ return (
                   <form onSubmit={handleAddEE}>
                 <table>
                       <tr>
-                          <th><input type="checkbox"  checked={selectAll} onChange={handleSelectAllChange}/>STT</th>
+                          <th>STT</th>
                           <th>Trường/Đại Học</th>
                           <th>Bằng Cấp Chứng Chỉ</th>
                           <th>Cấp Học</th>
                           <th>Năm Tốt Nghiệp</th>
                       </tr>
                       {education_employee.map((item, index) => (
-                        <tr key={index}>
-                            <td><input  type="checkbox"  checked={selectedItems[index]} onChange={handleItemChange(index)}/>{index+1}</td>
-                            <td><input type="text" name="Truong" value={item.Truong} onChange={handleChangeEE} /></td>
-                            <td><input type="text" name="BangCap" value={item.BangCap} onChange={handleChangeEE} /></td>
-                            <td><input type="text" name="CapHoc" value={item.CapHoc} onChange={handleChangeEE} /></td>
-                            <td><input type="text" name="NamTotNghiep" value={item.NamTotNghiep} onChange={handleChangeEE}/></td>
-                            <td><Cog onClick={() => openEdit(item.id)}/></td>
+                        <tr key={item.id}>
+                            <td>{index+1}</td>
+                            <td>{item.Truong}</td>
+                            <td>{item.BangCap}</td>
+                            <td>{item.CapHoc}</td>
+                            <td>{item.NamTotNghiep}</td>
+                            <td><Cog onClick={()=>openEdit(item.id)}/></td>
                             {edit && editingId === item.id && (
                         <div className='overlay'>
                           <div className='insert'>
@@ -1066,7 +1230,7 @@ return (
                               <div className="title-insert">
                                 Cập Nhật Học Vấn Nhân Viên
                               </div>
-                              <form onSubmit={handleEditEE}>
+                              <form >
                                 <div className="input-insert">
                                   <div>Tên Trường</div>
                                   <input type="text" onChange={handleChangeEE} value={education_employeeData.Truong} name="Truong"  required/>
@@ -1078,7 +1242,7 @@ return (
                                   <input type="text" onChange={handleChangeEE} value={education_employeeData.NamTotNghiep} name="NamTotNghiep" required/>
                                 </div>
                                 <div className="save">
-                                  <button type="submit">Cập Nhật</button>
+                                  <button  onClick={handleEditEE}>Cập Nhật</button>
                                   <button type="button" onClick={closeEdit}>X</button>
                                   <button type="button" onClick={() =>handleRemoveEE(item.id)}>Xóa</button>
                                 </div>
@@ -1086,15 +1250,35 @@ return (
                             </div>
                           </div>
                         </div>
-                        )}
+                            )}
                         </tr>
-                        
                       ))}
                   </table>
-                  <button type="button" className='btn-them' onClick={handleAddRow}>Thêm</button>
-                  {/* <button type="button" className='btn-them' onClick={handleDeleteSelected}>Xóa</button> */}
-                  <button type="submit" className='save-part'>Lưu</button>
+                  <button type="button" className='btn-them' onClick={openInsert}>Thêm</button>
                   </form>
+              </div>
+              )}
+              {insert && (
+              <div className='overlay'>
+                  <div className='employee-type-insert'>
+                      <div className='employee-type-insert-insert'>
+                        <div className="employee-type-title-insert">
+                            Thêm Học Vấn
+                        </div>
+                        <div className="employee-type-input-insert">
+                            <form onSubmit={handleAddEE}>
+                                <input type="text"onChange={handleChangeEE} placeholder="Nhập Tên Trường" name="Truong" required/>
+                                <input type="text"onChange={handleChangeEE} placeholder="Nhập Tên Bằng Cấp" name="BangCap" required/>
+                                <input type="text"onChange={handleChangeEE} placeholder="Nhập Tên Cấp Học" name="CapHoc" required/>
+                                <input type="text"onChange={handleChangeEE} placeholder="Nhập Năm Tốt Nghiệp" name="NamTotNghiep" required/>
+                            </form>
+                        </div>
+                        <div className="employee-type-save">
+                          <button onClick={handleAddEE}>Lưu</button>
+                          <button onClick={closeInsert}>X</button>
+                        </div>
+                      </div>
+                  </div>
               </div>
               )}
           </div>
