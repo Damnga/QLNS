@@ -6,7 +6,7 @@ import { Filter } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = 'http://localhost:1323/NhomNhanVien';
+const API_URL = 'http://localhost:1323/Nhom';
 
 const EmployeeGroup = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -77,6 +77,13 @@ const EmployeeGroup = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    const isDuplicate = nhomnhanvien.some(item => item.NhomNhanVien === nhomnhanvienData.NhomNhanVien);
+        if (isDuplicate) {
+            toast.error('Nhóm hiểm Nhân Viên đã tồn tại!', {
+                position: "top-right",
+            });
+            return;
+        }
     try {
       const newNhomnhanvien = { ...nhomnhanvienData };
       await fetch(API_URL, {
@@ -114,7 +121,7 @@ const EmployeeGroup = () => {
       toast.success('Thông tin nhóm nhân viên đã cập nhật', {
         position: "top-right",
       });
-      fetchGroup(); // Đảm bảo fetch lại dữ liệu
+      fetchGroup(); 
       closeEdit(); 
     } catch (error) {
       toast.error(error.message, {
@@ -133,16 +140,44 @@ const EmployeeGroup = () => {
         position: "top-right",
       });
       fetchGroup(); 
+      closeEdit(); 
     } catch (error) {
       toast.error(error.message, {
         position: "top-right",
       });
     }
   };
-
+  const handleRemoveSelected = async () => {
+    const selectedIds = employeeTypes
+        .filter((_, index) => selectedItems[index])
+        .map(item => item.id);
+  
+    if (selectedIds.length === 0) {
+        toast.warning('Không có mục nào được chọn để xóa!', {
+            position: "top-right",
+        });
+        return;
+    }
+  
+    try {
+        await Promise.all(selectedIds.map(id =>
+            fetch(`${API_URL}/${id}`, {
+                method: 'DELETE',
+            })
+        ));
+        toast.success('Các loại nhân viên đã được xóa thành công!', {
+            position: "top-right",
+        });
+        fetchEmployeeTypes(); 
+    } catch (error) {
+        toast.error('Xóa không thành công: ' + error.message, {
+            position: "top-right",
+        });
+    }
+  };
   return (
     <div className='branch'>
-      <FilterHeader/>
+      <FilterHeader handleRemoveSelected={handleRemoveSelected}/>
       <FilterSidebar/>
       <div className='branch-table'>
         <div className="branch-table-header">

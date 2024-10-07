@@ -20,23 +20,31 @@ const TITLE_API_URL="http://localhost:1323/ChucDanh";
 const BRANCH_API_URL="http://localhost:1323/ChiNhanh";
 const TITLE_EMPLOYEE_API_URL ="http://localhost:1323/ChucDanhNhanVien";
 const EDUCATION_EMPLOYEE_API_URL="http://localhost:1323/HocVanNhanVien";
+const HEALTH_INSURANCE_EMPLOYEE_API_URL="http://localhost:1323/BaoHiemNhanVien";
+const HEALTH_INSURANCE="http://localhost:1323/BaoHiem";
 
 const EmployeeDetail = () => {
 const {id} =useParams();
 const navigate = useNavigate();
+const [dropdown,setDropdown]= useState(false);
 const [edit, setEdit] = useState(false);
 const [insert, setInsert] = useState(false);
-const [editingId, setEditingId] = useState(null); 
+const [editingId, setEditingId] = useState(null);
 const [editTE, setEditTE] = useState(false);
 const [insertTE, setInsertTE] = useState(false);
-const [editingIdTE, setEditingIdTE] = useState(null); 
+const [editingIdTE, setEditingIdTE] = useState(null);
+const [editHE, setEditHE] = useState(false);
+const [insertHE, setInsertHE] = useState(false);
+const [editingIdHE, setEditingIdHE] = useState(null); 
 const [employeeInfor, setEmployeeInfo] = useState({});
 const [level,setLevel] =useState([]);
 const [branch,setBranch]=useState([]);
 const [title,setTitle]=useState([]);
 const [department,setDepartment]=useState([]);
+const [heatlh,setHealth]=useState([]);
 const [employeetype,setEmployeetype]=useState([]);
 const [selectbranch,setSelectbranch]=useState("");
+const [selecthealth,setSelecthealth]=useState("");
 const [selectedDepartment, setSelectedDepartment] = useState("");
 const [erelativeData,setErelativeData]=useState({
     IDNhanVien: id,
@@ -62,6 +70,10 @@ const [education_employeeData,setEducation_EmployeeData]=useState({
   CapHoc:"",
   NamTotNghiep:""
 });
+const [hi_employ,setHi_employ]=useState([]);
+const [hi_employData,setHi_employData]=useState({
+    IDNhanVien:id,IDBaoHiem:"",NgayDong:"",NgayHetHan:""
+});
 useEffect(() => {
     fetchEmployee();
     fetchEmployeeType();
@@ -72,7 +84,9 @@ useEffect(() => {
     fetchTitle_Employee();
     fetchEducation_Employee();
     handleItemChange();
-}, []);
+    fetchHealth_Employee();
+    fetchHealth();
+},[]);
 useEffect(() => {
   if (selectbranch) {
     fetchDepartment(selectbranch);
@@ -80,7 +94,29 @@ useEffect(() => {
     setDepartment([]); 
     setSelectedDepartment("");
   }
-}, [selectbranch]);
+},[selectbranch]);
+const fetchHealth = async () => {
+  try {
+    const response = await fetch(HEALTH_INSURANCE);
+    const data = await response.json();
+    setHealth(data);
+  } catch (error) {
+    console.error('Error fetching branches:', error);
+  }
+};
+const fetchHealth_Employee = async () => {
+  try {
+    const response = await fetch(`${HEALTH_INSURANCE_EMPLOYEE_API_URL}?IDNhanVien=${id}`);
+    const data = await response.json();
+    if (Array.isArray(data)) {
+      setHi_employ(data);
+    } else {
+      setHi_employ([]);
+    }
+  } catch (error) {
+    console.error('Error fetching relatives:', error);
+  }
+};
 const fetchEducation_Employee = async () => {
   try {
     const response = await fetch(`${EDUCATION_EMPLOYEE_API_URL}?IDNhanVien=${id}`);
@@ -101,7 +137,7 @@ const fetchTitle_Employee = async () => {
     if (Array.isArray(data)) {
       setTitle_employee(data);
     } else {
-      etTitle_employee([]);
+      setTitle_employee([]);
     }
   } catch (error) {
     console.error('Error fetching relatives:', error);
@@ -293,15 +329,15 @@ const handleChange = (e) => {
         [name]: value
     }));
 };
-const handleSave = async () => {
+const handleSave = async (e) => {
   e.preventDefault();
     try {
         const response = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
-            method: 'PUT', // Hoặc 'PATCH' nếu bạn chỉ muốn cập nhật một số trường
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(employeeInfor), // Chuyển đổi dữ liệu thành JSON
+            body: JSON.stringify(employeeInfor),
         });
 
         if (!response.ok) {
@@ -309,17 +345,16 @@ const handleSave = async () => {
         }
 
         toast.success('Thông tin nhân viên đã được cập nhật');
-        navigate('/app/employee'); // Chuyển hướng về danh sách nhân viên
     } catch (error) {
         toast.error(error.message);
         console.log("Error updating employee:", error);
     }
 };
-const [dropdown,setDropdown]= useState(false);
 const drop =()=>{
   setDropdown(!dropdown);
 };
-const handleDelete = async () => {
+const handleDelete = async (e) => {
+  e.preventDefault();
   try {
       const employeeResponse = await fetch(`${EMPLOYEE_API_URL}/${id}`, {
           method: 'DELETE',
@@ -328,7 +363,10 @@ const handleDelete = async () => {
       if (!employeeResponse.ok) {
           throw new Error('Failed to delete employee');
       }
-      toast.success('Nhân viên và người thân của nhân viên đã được xóa thành công');
+      toast.success('Nhân viên đã được xóa thành công');
+      handleDeleteTE(id);
+      handleDeleteER(id);
+      handleRemoveEE(id);
       navigate("/app/employee");
   } catch (error) {
       toast.error(error.message);
@@ -339,6 +377,10 @@ const handleBranchChange = (e) => {
   setSelectbranch(e.target.value);
   setSelectedDepartment(""); 
   setTitle_employeeData({...title_employeeData,IDChiNhanh: e.target.value})
+};
+const handleHealthChange = (e) => {
+  setHi_employData({...hi_employData,IDBaoHiem:e.target.value})
+  setSelecthealth(e.target.value);
 };
 const handleDepartmentChange = (e) => {
   if (!selectbranch) {
@@ -361,7 +403,14 @@ const getTitleNameById = (id) => {
   const branch = title.find(branch => branch.id === id);
   return branch ? branch.ChucDanh : '';
 };
-
+const getHealthNameById = (id) => {
+  const branch = heatlh.find(branch => branch.id === id);
+  return branch ? branch.TenBaoHiem : '';
+};
+const getHealthLePhiById = (id) => {
+  const branch = heatlh.find(branch => branch.id === id);
+  return branch ? branch.TiLePhi : '';
+};
 
 const handleChangeER = (e) => {
   const { name, value } = e.target;
@@ -480,7 +529,8 @@ const handleSaveTE = async (e) => {
     await handleAddTE();
   }
 };
-const handleAddTE = async () => {
+const handleAddTE = async (e) => {
+  e.preventDefault();
   try {
     const newtitle_employeeData = { ...title_employeeData };
     await fetch(`${TITLE_EMPLOYEE_API_URL}`, {
@@ -544,6 +594,88 @@ const handleDeleteTE = async (id) => {
   }
 };
 
+const openEditHE = (id) => {
+  const itemToEdit = hi_employ.find(item => item.id === id);
+  setHi_employData(itemToEdit);
+  setEditingIdHE(id); 
+  setEditHE(true);
+};
+const closeEditHE = () => {
+  setEditHE(false);
+  setHi_employData({IDNhanVien:"",IDBaoHiem:"",NgayDong:"",NgayHetHan:""});  
+};
+const openInsertHE = () => {
+  setInsertHE(true);
+};
+const closeInsertHE = () => {
+  setInsertHE(false);
+  setHi_employData({IDNhanVien:"",IDBaoHiem:"",NgayDong:"",NgayHetHan:""}); 
+};
+const handleAddHE = async (e) => {
+  e.preventDefault();
+  try {
+    const newtitle_employeeData = { ...hi_employData };
+    await fetch(`${HEALTH_INSURANCE_EMPLOYEE_API_URL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newtitle_employeeData),
+    });
+    toast.success('Bảo Hiểm Nhân viên mới đã được tạo thành công!', {
+      position: "top-right",
+    });
+    fetchHealth_Employee(); 
+    closeInsertHE();
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+    console.log("them",error);
+  }
+};
+const handleEditHE = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch(`${HEALTH_INSURANCE_EMPLOYEE_API_URL}/${hi_employData.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(hi_employData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update title employee information');
+    }
+    toast.success('Thông tin bảo hiểm nhân viên đã được cập nhật', {
+      position: "top-right",
+    });
+    fetchHealth_Employee();
+    closeEditHE();
+  } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
+    console.log("them",error);
+  }
+};
+const handleDeleteHE = async (id) => {
+  if (!id) return; 
+  try {
+      await fetch(`${HEALTH_INSURANCE_EMPLOYEE_API_URL}/${id}`, {
+          method: 'DELETE',
+      });
+      toast.success('bảo hiểm nhân viên đã được xóa thành công!', {
+          position: "top-right",
+      });
+      fetchHealth_Employee();
+    closeEditHE();
+  } catch (error) {
+      toast.error(error.message, {
+          position: "top-right",
+      });
+  }
+};
+
 const openEdit = (id) => {
   const itemToEdit = education_employee.find(item => item.id === id);
   setEducation_EmployeeData(itemToEdit);
@@ -552,10 +684,7 @@ const openEdit = (id) => {
 };
 const closeEdit = () => {
   setEdit(false);
-  setEducation_EmployeeData({Truong:"",
-    BangCap:"",
-    CapHoc:"",
-    NamTotNghiep:""});  
+  setEducation_EmployeeData({Truong:"",BangCap:"",CapHoc:"",NamTotNghiep:""});  
 };
 const openInsert = () => {
   setInsert(true);
@@ -769,7 +898,7 @@ return (
                   {employeetype.map(item => (
                     <option key={item.id} value={item.id}>{item.LoaiNhanVien}</option>
                   ))}
-                </select>
+          </select>
         </div>
         <div className="input-group">
           <div className='input-title'>Ngày Nhận Việc</div>
@@ -786,8 +915,8 @@ return (
       </div>
       <button type="submit" className='save-part' >Lưu</button>
       </form>
-    </div>
-  )}
+      </div>
+      )}
           </div>
           <div className='personal-infor'>
               <div className="title">
@@ -842,8 +971,8 @@ return (
               </div>
               {click4 &&(
                 <div className="input-content15" >
-                  <form onSubmit={handleAddTE}>
-                <table>
+                  <form >
+                    <table>
                       <tr>
                           <th>STT</th>
                           <th>Chi Nhánh</th>
@@ -911,8 +1040,8 @@ return (
                             )}
                         </tr>
                       ))}
-                  </table>
-                  <button type="button" className='btn-them' onClick={openInsertTE}>Thêm</button>
+                    </table>
+                    <button type="button" className='btn-them' onClick={openInsertTE}>Thêm</button>
                   </form>
               </div>
               )}
@@ -924,12 +1053,12 @@ return (
                             Thêm Bộ Phận và Cấp Bậc
                         </div>
                         <div className="employee-type-input-insert">
-                            <form onSubmit={handleAddTE}>
+                            <form >
                               <div className='input-title'>Chức Danh</div>
                               <select name="IDChucDanh" onChange={(e)=>setTitle_employeeData({...title_employeeData,IDChucDanh:e.target.value})} value={title_employeeData.IDChucDanh} >
                                 <option value="">Chọn Chức Danh</option>
                                   {title.map(item => (
-                                <option key={item.id} value={item.id}>{item.ChucDanh}</option>
+                                  <option key={item.id} value={item.id}>{item.ChucDanh}</option>
                                   ))}
                               </select>
                               
@@ -1055,31 +1184,31 @@ return (
                 <div>
                 <div className="input-content8" >
                   <div class="input-group">
-                      <div className='input-title'>Lương Vị Trí<Asterisk className='red'/></div>
+                      <div className='input-title'>Lương Vị Trí</div>
                       <input className='input-option' type="text" />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Phần Trăm Lương Thử Việc<Asterisk className='red'/></div>
+                      <div className='input-title'>Phần Trăm Lương Thử Việc</div>
                       <input className='input-option' type="text"  />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Tổng Trả<Asterisk className='red'/></div>
+                      <div className='input-title'>Tổng Trả</div>
                       <input className='input-option' type="text" />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Phụ Cấp Ăn Trưa<Asterisk className='red'/></div>
+                      <div className='input-title'>Phụ Cấp Ăn Trưa</div>
                       <input className='input-option' type="text"  />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Phụ Cấp Xăng Xe,Di Chuyển<Asterisk className='red'/></div>
+                      <div className='input-title'>Phụ Cấp Xăng Xe,Di Chuyển</div>
                       <input className='input-option' type="text" />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Phụ Cấp Chuyên Cần<Asterisk className='red'/></div>
+                      <div className='input-title'>Phụ Cấp Chuyên Cần</div>
                       <input className='input-option' type="text"  />
                   </div>
                   <div class="input-group">
-                      <div className='input-title'>Phụ Cấp Điện Thoại<Asterisk className='red'/></div>
+                      <div className='input-title'>Phụ Cấp Điện Thoại</div>
                       <input className='input-option' type="text" />
                   </div>
                  
@@ -1090,28 +1219,95 @@ return (
           </div>
           <div className="personal-infor">
               <div className="title">
-                Bảo Hiểm Y Tế<ChevronDown className='icon'onClick={eventclick9}/>
+                Bảo Hiểm Nhân Viên<ChevronDown className='icon'onClick={eventclick9}/>
               </div>
               {click9 &&(
                 <div className="input-content9" >
-                  <div class="input-group">
-                      <div className='input-title'>Nhà Cung Cấp Bảo Hiểm Y Tế</div>
-                      <input className='input-option' type="text"  />
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Health Insurance File</div>
-                      <input className='input-option' type="file" />
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Nơi Đăng Kí Khám Chữa Bệnh</div>
-                      <input className='input-option' type="text"  />
-                  </div>
-                  <div class="input-group">
-                      <div className='input-title'>Tỉ Lệ Phí Bảo Hiểm</div>
-                      <input className='input-option' type="text" />
-                  </div>
-                  <button className='save-part'>Lưu</button>
+                  <form>
+                    <table>
+                      <tr>
+                          <th>STT</th>
+                          <th>Tên Bảo Hiểm</th>
+                          <th>Lệ Phí Đóng Bảo Hiểm</th>
+                          <th>Ngày Đóng</th>
+                          <th>Ngày Hết Hạn</th>
+                      </tr>
+                      {hi_employ.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{index+1}</td>
+                            <td>{getHealthNameById(item.IDBaoHiem)}</td>
+                            <td>{getHealthLePhiById(item.IDBaoHiem)}</td>
+                            <td>{item.NgayDong}</td>
+                            <td>{item.NgayHetHan}</td>
+                            <td><Cog onClick={()=>openEditHE(item.id)}/></td>
+                            {editHE && editingIdHE === item.id && (
+                        <div className='overlay'>
+                          <div className='insert'>
+                            <div className='insert-insert'>
+                              <div className="title-insert">
+                                Cập Nhật Bảo Hiểm
+                              </div>
+                              <form >
+                                <div className="input-insert">
+                                  <div>Bảo Hiểm</div>
+                                  <select name="IDBaoHiem" onChange={handleHealthChange} value={hi_employData.IDBaoHiem}>
+                                    <option value="">Chọn Bảo Hiểm</option>
+                                    {heatlh.map(item => (
+                                    <option key={item.id} value={item.id}>{item.TenBaoHiem}</option>
+                                    ))}
+                                  </select>
+                                  <div>Ngày Đóng</div>
+                                  <input className='input-option' type="date" onChange={(e)=>setHi_employData({...hi_employData,NgayDong:e.target.value})} value={hi_employData.NgayDong} />
+                                  <div>Ngày Hết Hạn</div>
+                                  <input className='input-option' type="date" onChange={(e)=>setHi_employData({...hi_employData,NgayHetHan:e.target.value})} value={hi_employData.NgayHetHan} />
+                                </div>
+                                <div className="save">
+                                  <button  onClick={handleEditHE} >Cập Nhật</button>
+                                  <button type="button"onClick={closeEditHE} >X</button>
+                                  <button type="button"onClick={() =>handleDeleteHE(item.id)}>Xóa</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                            )}
+                        </tr>
+                      ))}
+                    </table>
+                    <button type="button" className='btn-them' onClick={openInsertHE}>Thêm</button>
+                  </form>
                 </div>
+              )}
+              {insertHE && (
+              <div className='overlay'>
+                  <div className='employee-type-insert'>
+                      <div className='employee-type-insert-insert'>
+                        <div className="employee-type-title-insert">
+                            Thêm Bảo Hiểm
+                        </div>
+                        <div className="employee-type-input-insert">
+                            <form >
+                              <div className='input-title'>Tên Bảo Hiểm</div>
+                              <select name="IDBaoHiem" onChange={(e)=>setHi_employData({...hi_employData,IDBaoHiem:e.target.value})} value={hi_employData.IDBaoHiem} >
+                                <option value="">Chọn Bảo Hiểm</option>
+                                  {heatlh.map(item => (
+                                  <option key={item.id} value={item.id}>{item.TenBaoHiem}</option>
+                                  ))}
+                              </select>
+                              <div className='input-title'>Ngày Đóng </div>
+                              <input className='input-option' type="date" onChange={(e)=>setHi_employData({...hi_employData,NgayDong:e.target.value})} value={hi_employData.NgayDong} />
+                            
+                              <div className='input-title'>Ngày Hết Hạn</div>
+                              <input className='input-option' type="date" onChange={(e)=>setHi_employData({...hi_employData,NgayHetHan:e.target.value})} value={hi_employData.NgayHetHan} />
+                            </form>
+                        </div>
+                        <div className="employee-type-save">
+                          <button onClick={handleAddHE} >Lưu</button>
+                          <button onClick={closeInsertHE}>X</button>
+                        </div>
+                      </div>
+                  </div>
+              </div>
               )}
           </div>
           <div className="personal-infor">

@@ -91,7 +91,15 @@ const [branches, setBranches] = useState([]);
       [name]: value
     }));
   };
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const isDuplicate = phongban.some(item => item.PhongBan === phongbanData.PhongBan && item.ID_ChiNhanh === phongbanData.ID_ChiNhanh);
+        if (isDuplicate) {
+            toast.error('Phòng Bạn đã tồn tại!', {
+                position: "top-right",
+            });
+            return;
+        }
     try {
       const newDepartment = {
         ...phongbanData,
@@ -160,9 +168,37 @@ const [branches, setBranches] = useState([]);
     const branch = branches.find(branch => branch.id === id);
     return branch ? branch.ChiNhanh : 'Unknown';
   };
+  const handleRemoveSelected = async () => {
+    const selectedIds = employeeTypes
+        .filter((_, index) => selectedItems[index])
+        .map(item => item.id);
+  
+    if (selectedIds.length === 0) {
+        toast.warning('Không có mục nào được chọn để xóa!', {
+            position: "top-right",
+        });
+        return;
+    }
+  
+    try {
+        await Promise.all(selectedIds.map(id =>
+            fetch(`${API_URL}/${id}`, {
+                method: 'DELETE',
+            })
+        ));
+        toast.success('Các loại nhân viên đã được xóa thành công!', {
+            position: "top-right",
+        });
+        fetchEmployeeTypes(); 
+    } catch (error) {
+        toast.error('Xóa không thành công: ' + error.message, {
+            position: "top-right",
+        });
+    }
+  };
   return (
     <div className='branch'>
-      <FilterHeader/>
+      <FilterHeader handleRemoveSelected={handleRemoveSelected}/>
       <FilterSidebar/>
       <div className='branch-table'>
         <div className="branch-table-header">

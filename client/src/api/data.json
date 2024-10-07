@@ -1,49 +1,40 @@
 {
   "NhanVien": [
     {
-      "id": "25ed",
+      "id": "ac86",
       "Ten": "nga",
-      "Dem": "thị",
+      "Dem": "5TTG",
       "Ho": "Đàm",
-      "Email": "hgtrehh",
+      "Email": "damthinga123@gmail.com",
       "ID_LoaiNhanVien": "",
       "ID_CapBac": "",
       "NgayBatDau": "",
       "NgayKetThuc": "",
-      "GioiTinh": "nữ",
-      "Sdt": "nrgngn",
-      "DiaChi": "ynyntyn",
-      "CCCD": "ynytntyjnyt",
+      "GioiTinh": "Nam",
+      "Sdt": "gngfjngf",
+      "DiaChi": "mhm",
+      "CCCD": "rghtjr",
       "NgaySinh": ""
     }
   ],
-  "HocVanNhanVien": [
+  "HocVanNhanVien": [],
+  "NguoiThanNhanVien": [],
+  "ChucDanhNhanVien": [],
+  "BaoHiemNhanVien": [],
+  "NhomNhanVien": [
     {
-      "id": "53ae",
-      "Truong": "u",
-      "BangCap": "kuyk",
-      "CapHoc": "lyukt",
-      "NamTotNghiep": "rur"
+      "IDNhanVien": "",
+      "IDNhom": "",
+      "id": "f574"
     }
   ],
-  "NguoiThanNhanVien": [],
-  "ChucDanhNhanVien": [
+  "KyNangNhanVien": [
     {
-      "id": "f40d",
-      "IDNhanVien": "25ed",
-      "IDChucDanh": "121a",
-      "IDPhongBan": "5166",
-      "IDChiNhanh": "fd3e",
-      "NgayBatDau": "2024-10-10",
-      "NgayKetThuc": "2024-10-10"
-    },
-    {
-      "id": "5406",
-      "IDChucDanh": "1792",
-      "IDPhongBan": "5166",
-      "IDChiNhanh": "fd3e",
-      "NgayBatDau": "2024-10-01",
-      "NgayKetThuc": "2024-10-02"
+      "IDNhanVien": "",
+      "IDKyNang": "",
+      "MucDo": "",
+      "NgayDanhGia": "",
+      "id": "f06e"
     }
   ],
   "LoaiNhanVien": [
@@ -51,18 +42,6 @@
       "ID": "002",
       "LoaiNhanVien": "Bán thời gian",
       "id": "c9e7"
-    },
-    {
-      "id": "522c",
-      "LoaiNhanVien": "ghẻghergre"
-    },
-    {
-      "id": "2d6f",
-      "LoaiNhanVien": "hjkhpiohpiok"
-    },
-    {
-      "id": "d33c",
-      "LoaiNhanVien": "hgmghkmhkj"
     }
   ],
   "ChiNhanh": [
@@ -70,11 +49,6 @@
       "ID": "001",
       "ChiNhanh": "Hà Nội",
       "id": "fd3e"
-    },
-    {
-      "ID": "002",
-      "ChiNhanh": "TP.Hồ Chí Minh",
-      "id": "90be"
     },
     {
       "ID": "003",
@@ -87,13 +61,18 @@
       "ID": "006",
       "PhongBan": "Phát triển sản phẩm",
       "id": "8723",
-      "ID_ChiNhanh": "7a98"
+      "ID_ChiNhanh": "90be"
     },
     {
       "ID": "012",
       "PhongBan": "Truyền thông",
       "id": "5166",
       "ID_ChiNhanh": "fd3e"
+    },
+    {
+      "id": "9210",
+      "PhongBan": "Truyền thông",
+      "ID_ChiNhanh": "90be"
     }
   ],
   "ChucDanh": [
@@ -210,12 +189,6 @@
       "ChucDanh": "Quản lý chất lượng",
       "KyNang": "Đánh giá chất lượng",
       "id": "ffa7"
-    },
-    {
-      "id": "2aaa",
-      "ID": "001",
-      "ChucDanh": "Giám ",
-      "KyNang": "Lãnh đạo"
     }
   ],
   "CapBac": [
@@ -234,7 +207,7 @@
     {
       "ID": "003",
       "CapBac": "Quản lý",
-      "CauTrucLuong": 1700,
+      "CauTrucLuong": "1180",
       "id": "18c7"
     },
     {
@@ -244,7 +217,7 @@
       "id": "8644"
     }
   ],
-  "NhomNhanVien": [
+  "Nhom": [
     {
       "ID": "002",
       "NhomNhanVien": "Nhân sự",
@@ -334,68 +307,22 @@
       "ID": "020",
       "NhomNhanVien": "Logistics",
       "id": "abfb"
-    },
-    {
-      "id": "2876",
-      "ID": "006",
-      "NhomNhanVien": "IT it"
     }
   ],
-  "BaoHiemNhanVien": [
+  "BaoHiem": [
     {
-      "ID": "008",
-      "BaoHiem": "Bảo hiểm hưu trí",
-      "id": "553e"
-    },
+      "TenBaoHiem": "123",
+      "NhaCungCap": "345",
+      "NoiDangKi": "55",
+      "TiLePhi": "rt4t",
+      "id": "9703"
+    }
+  ],
+  "KyNang": [
     {
-      "ID": "010",
-      "BaoHiem": "Bảo hiểm thương tích",
-      "id": "15b6"
-    },
-    {
-      "ID": "011",
-      "BaoHiem": "Bảo hiểm cho con cái",
-      "id": "dfb6"
-    },
-    {
-      "ID": "012",
-      "BaoHiem": "Bảo hiểm bệnh hiểm nghèo",
-      "id": "c0bc"
-    },
-    {
-      "ID": "013",
-      "BaoHiem": "Bảo hiểm du lịch",
-      "id": "adfa"
-    },
-    {
-      "ID": "014",
-      "BaoHiem": "Bảo hiểm xe cộ",
-      "id": "b7a5"
-    },
-    {
-      "ID": "015",
-      "BaoHiem": "Bảo hiểm trách nhiệm dân sự",
-      "id": "1675"
-    },
-    {
-      "ID": "017",
-      "BaoHiem": "Bảo hiểm bảo vệ tài sản",
-      "id": "8177"
-    },
-    {
-      "ID": "018",
-      "BaoHiem": "Bảo hiểm bảo vệ doanh nghiệp",
-      "id": "2172"
-    },
-    {
-      "ID": "019",
-      "BaoHiem": "Bảo hiểm ngắn hạn",
-      "id": "0a2c"
-    },
-    {
-      "ID": "020",
-      "BaoHiem": "Bảo hiểm lâu dài",
-      "id": "3a44"
+      "TenKyNang": "",
+      "MoTa": "",
+      "id": "250c"
     }
   ]
 }

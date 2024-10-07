@@ -142,7 +142,7 @@
     display: grid;
     grid-template-columns: repeat(2, 0.5fr);
     gap: 20px;
-    height:150px;
+    height:250px;
     background-color:white;
     margin-right: 20px;
 }
@@ -150,7 +150,7 @@
     display: grid;
     grid-template-columns: repeat(2, 0.5fr);
     gap: 20px;
-    height:400px;
+    height:550px;
     background-color:white;
     margin-right: 20px;
 }

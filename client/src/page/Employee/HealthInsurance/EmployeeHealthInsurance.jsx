@@ -6,7 +6,7 @@ import { Filter } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = 'http://localhost:1323/BaoHiemNhanVien'; 
+const API_URL = 'http://localhost:1323/BaoHiem'; 
 
 const EmployeeHealthInsurance = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -15,7 +15,7 @@ const EmployeeHealthInsurance = () => {
   const [edit, setEdit] = useState(false);
   const [editingId, setEditingId] = useState(null); 
   const [baohiemData, setBaoHiemData] = useState({
-    BaoHiem: ""
+    TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""
   });
   const [baohiem, setBaoHiem] = useState([]);
 
@@ -41,7 +41,7 @@ const EmployeeHealthInsurance = () => {
 
   const closeInsert = () => {
     setInsert(false);
-    setBaoHiemData({ BaoHiem: "" });
+    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""});
   };
 
   const openEdit = (id) => {
@@ -53,7 +53,7 @@ const EmployeeHealthInsurance = () => {
 
   const closeEdit = () => {
     setEdit(false);
-    setBaoHiemData({ BaoHiem: "" }); 
+    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""}); 
     setEditingId(null); 
   };
 
@@ -80,7 +80,14 @@ const EmployeeHealthInsurance = () => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();  // Ngăn chặn việc submit form mặc định
+    e.preventDefault();
+    const isDuplicate = baohiem.some(item => item.BaoHiem === baohiemData.BaoHiem);
+        if (isDuplicate) {
+            toast.error('Bảo hiểm Nhân Viên đã tồn tại!', {
+                position: "top-right",
+            });
+            return;
+        }
     try {
       const newHealthInsurance = {
         ...baohiemData,
@@ -146,10 +153,37 @@ const EmployeeHealthInsurance = () => {
       });
     }
   };
-
+  const handleRemoveSelected = async () => {
+    const selectedIds = employeeTypes
+        .filter((_, index) => selectedItems[index])
+        .map(item => item.id);
+  
+    if (selectedIds.length === 0) {
+        toast.warning('Không có mục nào được chọn để xóa!', {
+            position: "top-right",
+        });
+        return;
+    }
+  
+    try {
+        await Promise.all(selectedIds.map(id =>
+            fetch(`${API_URL}/${id}`, {
+                method: 'DELETE',
+            })
+        ));
+        toast.success('Các loại nhân viên đã được xóa thành công!', {
+            position: "top-right",
+        });
+        fetchEmployeeTypes(); 
+    } catch (error) {
+        toast.error('Xóa không thành công: ' + error.message, {
+            position: "top-right",
+        });
+    }
+  };
   return (
     <div className='branch'>
-      <FilterHeader />
+      <FilterHeader handleRemoveSelected={handleRemoveSelected} />
       <FilterSidebar />
       <div className='branch-table'>
         <div className="branch-table-header">
@@ -168,13 +202,10 @@ const EmployeeHealthInsurance = () => {
                   </div>
                   <div className="employee-type-input-insert">
                     <form onSubmit={handleSave}>
-                      <input
-                        type="text"
-                        onChange={handleChange}
-                        name="BaoHiem"
-                        placeholder="Nhập Bảo Hiểm nhân viên"
-                        required
-                      />
+                      <input type="text" onChange={handleChange}  name="TenBaoHiem"  placeholder="Nhập Bảo Hiểm"  required/>
+                      <input  type="text"   onChange={handleChange}  name="NhaCungCap"  placeholder="Nhập Nhà Cung Cấp"  required />
+                      <input  type="text"  onChange={handleChange}   name="NoiDangKi"  placeholder="Nhập Nơi Đăng Kí"  required/>
+                      <input  type="text"  onChange={handleChange}  name="TiLePhi"  placeholder="Nhập Tỉ lệ Phí"  required/>
                       <div className="employee-type-save">
                         <button type="submit">Lưu</button>
                         <button type="button" onClick={closeInsert}>X</button>
@@ -190,20 +221,24 @@ const EmployeeHealthInsurance = () => {
             <button className='branch-filter-coponent'><div className="filter-icon" /><span>Tác Vụ</span></button>
           </div>
         </div>
-        <div className="branch-table-filter">
-          <div className="branch-table-contain">
-            <div className="branch-format-title">
+        <div className="health-insurance-table-filter">
+          <div className="health-insurance-table-contain">
+            <div className="health-insurance-format-title">
               <b><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></b>
-              <b>ID</b>
               <b>Bảo Hiểm</b>
+              <b>Nhà Cung Cấp</b>
+              <b>Nơi Đăng Kí</b>
+              <b>Tỉ Lệ Phí</b>
             </div>
             {baohiem.map((item, index) => (
-              <div className='employee-type-format' key={item.id}>
+              <div className='health-insurance-type-format' key={item.id}>
                 <div>
                   <input type="checkbox" checked={selectedItems[index]} onChange={handleItemChange(index)} />
                 </div>
-                <div onClick={() => openEdit(item.id)}>{item.id}</div>
-                <div onClick={() => openEdit(item.id)}>{item.BaoHiem}</div>
+                <div onClick={() => openEdit(item.id)}>{item.TenBaoHiem}</div>
+                <div onClick={() => openEdit(item.id)}>{item.NhaCungCap}</div>
+                <div onClick={() => openEdit(item.id)}>{item.NoiDangKi}</div>
+                <div onClick={() => openEdit(item.id)}>{item.TiLePhi}</div>
                 {edit && editingId === item.id && (
                   <div className='overlay'>
                     <div className='insert'>
@@ -213,13 +248,10 @@ const EmployeeHealthInsurance = () => {
                         </div>
                         <form onSubmit={handleEdit}>
                           <div className="input-insert">
-                            <input
-                              type="text"
-                              onChange={handleChange}
-                              value={baohiemData.BaoHiem}
-                              name="BaoHiem"
-                              required
-                            />
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.TenBaoHiem}  name="BaoHiem"  required/>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.NhaCungCap} name="BaoHiem"  required/>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.NoiDangKi}  name="BaoHiem"  required/>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.TiLePhi}  name="BaoHiem"  required/>
                           </div>
                           <div className="save">
                             <button type="submit">Cập Nhật</button>

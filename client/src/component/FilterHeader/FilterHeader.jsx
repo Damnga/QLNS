@@ -2,7 +2,7 @@ import React from 'react'
 import "./FilterHeader.css";
 import { AlignJustify,Blinds, Ellipsis, Plus, RotateCw} from 'lucide-react';
 import { useState } from 'react';
-const FilterHeader = ({menu,setMenu,click ,onClick}) => {
+const FilterHeader = ({menu,setMenu,click ,onClick,handleRemoveSelected}) => {
     const [dropdown,setDropdown]= useState(false);
     const drop =()=>{
         setDropdown(!dropdown);
@@ -29,7 +29,7 @@ const FilterHeader = ({menu,setMenu,click ,onClick}) => {
                 <Ellipsis className='dot'/>
             </div>
             <div className={`dropdown-menu ${dropdown ? 'show' : ''}`}>
-              {dropdown?<button onClick={onClick} className='remove-part-header'>Xóa</button>:""}
+              {dropdown?<button onClick={handleRemoveSelected} className='remove-part-header'>Xóa</button>:""}
               </div>
            
         </div>

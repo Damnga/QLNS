@@ -76,7 +76,15 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
     }));
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const isDuplicate = employeeTypes.some(item => item.LoaiNhanVien === employeeTypeData.LoaiNhanVien);
+        if (isDuplicate) {
+            toast.error('Loại Nhân Viên đã tồn tại!', {
+                position: "top-right",
+            });
+            return;
+        }
     try {
       const newEmployeeType = {
         ...employeeTypeData,
@@ -142,9 +150,37 @@ const handleRemove = async (id) => {
   }
 };
 
+const handleRemoveSelected = async () => {
+  const selectedIds = employeeTypes
+      .filter((_, index) => selectedItems[index])
+      .map(item => item.id);
+
+  if (selectedIds.length === 0) {
+      toast.warning('Không có mục nào được chọn để xóa!', {
+          position: "top-right",
+      });
+      return;
+  }
+
+  try {
+      await Promise.all(selectedIds.map(id =>
+          fetch(`${API_URL}/${id}`, {
+              method: 'DELETE',
+          })
+      ));
+      toast.success('Các loại nhân viên đã được xóa thành công!', {
+          position: "top-right",
+      });
+      fetchEmployeeTypes(); 
+  } catch (error) {
+      toast.error('Xóa không thành công: ' + error.message, {
+          position: "top-right",
+      });
+  }
+};
 return (
   <div className='employeetype'>
-      <FilterHeader />
+      <FilterHeader handleRemoveSelected={handleRemoveSelected} />
       <FilterSidebar />
       <div className='employee-type-table'>
           <div className="employee-type-table-header">

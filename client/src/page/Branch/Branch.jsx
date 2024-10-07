@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = 'http://localhost:1323/ChiNhanh';
-
+const DEPARTMENT_API_URL="http://localhost:1323/PhongBan";
 const Branch = () => {
     const navigate = useNavigate();
     const [selectAll, setSelectAll] = useState(false);
@@ -18,11 +18,19 @@ const Branch = () => {
     const [editingId, setEditingId] = useState(null);
     const [branchData, setBranchData] = useState({ ChiNhanh: "" });
     const [branch, setBranch] = useState([]);
-
+    const [phongban,setPhongban]=useState([]);
     useEffect(() => {
         fetchBranch();
     }, []);
-
+    const fetchDepartment = async () => {
+        try {
+          const response = await fetch(BRANCH_API_URL);
+          const data = await response.json();
+          setPhongban(data);
+        } catch (error) {
+          console.error('Error fetching branches:', error);
+        }
+      };
     const fetchBranch = async () => {
         try {
             const response = await fetch(API_URL);
@@ -78,7 +86,15 @@ const Branch = () => {
         }));
     };
 
-    const handleSave = async () => {
+    const handleSave = async (e) => {
+        e.preventDefault();
+        const isDuplicate = branch.some(item => item.ChiNhanh === branchData.ChiNhanh);
+        if (isDuplicate) {
+            toast.error('Chi nhánh đã tồn tại!', {
+                position: "top-right",
+            });
+            return;
+        }
         try {
             const newBranch = {
                 ...branchData,
@@ -94,7 +110,7 @@ const Branch = () => {
             }
 
             const createdBranch = await response.json();
-            setBranch((prevBranches) => [...prevBranches, createdBranch]); // Cập nhật trạng thái mà không cần fetch lại
+            setBranch((prevBranches) => [...prevBranches, createdBranch]);
             toast.success('Chi Nhánh mới đã được tạo thành công!', {
                 position: "top-right",
             });
@@ -138,21 +154,66 @@ const Branch = () => {
             await fetch(`${API_URL}/${id}`, {
                 method: 'DELETE',
             });
-            setBranch(prevBranches => prevBranches.filter(item => item.id !== id)); // Cập nhật danh sách mà không cần fetch lại
+            setBranch(prevBranches => prevBranches.filter(item => item.id !== id));
             toast.success('Chi nhánh đã được xóa thành công!', {
                 position: "top-right",
             });
+            handleRemoveDepartment(id);
             fetchBranch();
+
         } catch (error) {
             toast.error(error.message, {
                 position: "top-right",
             });
         }
     };
-
+    const handleRemoveDepartment = async (id) => {
+        if (!id) return; 
+        try {
+            await fetch(`${API_URL}/?ID_ChiNhanh=${id}`, {
+                method: 'DELETE',
+            });
+            toast.success('Phòng Ban thuộc chi nhánh này đã được xóa thành công!', {
+                position: "top-right",
+            });
+            fetchDepartment();
+        } catch (error) {
+            toast.error(error.message, {
+                position: "top-right",
+            });
+        }
+      };
+    const handleRemoveSelected = async () => {
+        const selectedIds = employeeTypes
+            .filter((_, index) => selectedItems[index])
+            .map(item => item.id);
+      
+        if (selectedIds.length === 0) {
+            toast.warning('Không có mục nào được chọn để xóa!', {
+                position: "top-right",
+            });
+            return;
+        }
+      
+        try {
+            await Promise.all(selectedIds.map(id =>
+                fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE',
+                })
+            ));
+            toast.success('Các loại nhân viên đã được xóa thành công!', {
+                position: "top-right",
+            });
+            fetchEmployeeTypes(); 
+        } catch (error) {
+            toast.error('Xóa không thành công: ' + error.message, {
+                position: "top-right",
+            });
+        }
+      };
     return (
         <div className='branch'>
-            <FilterHeader />
+            <FilterHeader handleRemoveSelected={handleRemoveSelected} />
             <FilterSidebar />
             <div className='branch-table'>
                 <div className="branch-table-header">

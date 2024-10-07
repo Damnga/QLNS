@@ -57,19 +57,19 @@
 .branch-filter-icon{
     width: 20px;
 }
-.branch-table-contain{
+.health-insurance-table-contain{
     padding-top: 20px;
     display:grid ;
     flex-direction: column; 
 }
-.branch-table-filter{
+.health-insurance-table-filter{
     margin-top: 20px;
     height:560px;
     overflow-y: auto;
 }
-.branch-format{
+.health-insurance-type-format{
     display: grid;
-    grid-template-columns:0.5fr 1fr 1.25fr;
+    grid-template-columns:0.5fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
     gap:10px;
     padding:12px 15px;
@@ -77,9 +77,9 @@
     font-size: 13px;
 }
 
-.branch-format-title{
+.health-insurance-format-title{
     display: grid;
-    grid-template-columns:  0.5fr 1fr 1.25fr ;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
     gap:10px;
     padding:12px 15px;

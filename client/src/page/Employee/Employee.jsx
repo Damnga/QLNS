@@ -106,7 +106,8 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
     }));
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     try {
       const newEmployee = {
         ...employeeData,
@@ -128,6 +129,7 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
     }
   };
   const handleEdit =async (id) => {
+    
     if (!editingId) return; 
     try {
         const response = await fetch(`${API_URL}/${id}`, { 
@@ -183,9 +185,37 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
       setSelectedItems([]);
       setSelectAll(false);
     };
+    const handleRemoveSelected = async () => {
+      const selectedIds = employeeTypes
+          .filter((_, index) => selectedItems[index])
+          .map(item => item.id);
+    
+      if (selectedIds.length === 0) {
+          toast.warning('Không có mục nào được chọn để xóa!', {
+              position: "top-right",
+          });
+          return;
+      }
+    
+      try {
+          await Promise.all(selectedIds.map(id =>
+              fetch(`${API_URL}/${id}`, {
+                  method: 'DELETE',
+              })
+          ));
+          toast.success('Các loại nhân viên đã được xóa thành công!', {
+              position: "top-right",
+          });
+          fetchEmployeeTypes(); 
+      } catch (error) {
+          toast.error('Xóa không thành công: ' + error.message, {
+              position: "top-right",
+          });
+      }
+    };
   return (
     <div className='employee'>
-      <FilterHeader click={onHeaderClick} onClick={deleteSelectedItems}/>
+      <FilterHeader click={onHeaderClick} handleRemoveSelected={handleRemoveSelected}/>
       <FilterSidebar />
       <div className='table'>
         <div className="table-header">
