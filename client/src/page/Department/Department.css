@@ -92,20 +92,6 @@
 td{
     border:none;
 }
-.overlay {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 1000; 
-  }
-  
-  
   .employee-type-insert {
     background: white; 
     padding: 20px;
@@ -122,6 +108,13 @@ td{
   }
   
   .employee-type-input-insert input {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+  }
+  .employee-type-input-insert select {
     width: 100%; 
     padding: 10px;
     margin-bottom: 15px; 
@@ -167,8 +160,11 @@ td{
     border: 1px solid #ccc; 
     border-radius: 4px;
   }
-  
-  .save button {
-    margin-right: 10px; 
+  .input-insert select {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
   }
   

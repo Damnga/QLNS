@@ -21,13 +21,7 @@
   "NguoiThanNhanVien": [],
   "ChucDanhNhanVien": [],
   "BaoHiemNhanVien": [],
-  "NhomNhanVien": [
-    {
-      "IDNhanVien": "",
-      "IDNhom": "",
-      "id": "f574"
-    }
-  ],
+  "NhomNhanVien": [],
   "KyNangNhanVien": [
     {
       "IDNhanVien": "",
@@ -35,6 +29,25 @@
       "MucDo": "",
       "NgayDanhGia": "",
       "id": "f06e"
+    },
+    {
+      "id": "f37a",
+      "IDNhanVien": "ac86",
+      "IDKyNang": "f3ad",
+      "MucDo": "fgsfg",
+      "NgayDanhGia": "2024-10-12"
+    }
+  ],
+  "KyNang": [
+    {
+      "id": "f3ad",
+      "TenKyNang": "NFGNMFG",
+      "MoTa": "NG"
+    },
+    {
+      "id": "5270",
+      "TenKyNang": "NFGNFG",
+      "MoTa": "GFNFGN"
     }
   ],
   "LoaiNhanVien": [
@@ -224,11 +237,6 @@
       "id": "df42"
     },
     {
-      "ID": "003",
-      "NhomNhanVien": "Kế toán",
-      "id": "a3ba"
-    },
-    {
       "ID": "004",
       "NhomNhanVien": "Marketing",
       "id": "0e18"
@@ -292,21 +300,6 @@
       "ID": "017",
       "NhomNhanVien": "Tư vấn",
       "id": "bd83"
-    },
-    {
-      "ID": "018",
-      "NhomNhanVien": "Pháp lý",
-      "id": "bac7"
-    },
-    {
-      "ID": "019",
-      "NhomNhanVien": "An ninh mạng",
-      "id": "4a2a"
-    },
-    {
-      "ID": "020",
-      "NhomNhanVien": "Logistics",
-      "id": "abfb"
     }
   ],
   "BaoHiem": [
@@ -316,13 +309,6 @@
       "NoiDangKi": "55",
       "TiLePhi": "rt4t",
       "id": "9703"
-    }
-  ],
-  "KyNang": [
-    {
-      "TenKyNang": "",
-      "MoTa": "",
-      "id": "250c"
     }
   ]
 }

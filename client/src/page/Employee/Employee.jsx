@@ -222,8 +222,8 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
               <div className="search-filter">
                   <input className="search-filter-input" type="text" placeholder='Tìm Kiếm' />
               </div>
-              <div className="insert">
-                  <button className='insert-button' onClick={openInsert}> + Thêm Nhân Viên</button>
+              <div className="branch-insert">
+              <button className='branch-insert-button' onClick={openInsert}> + Thêm Nhân Viên</button>
               </div>
               {insert && (
   <div className='overlay'>

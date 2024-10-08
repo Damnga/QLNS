@@ -1,16 +1,16 @@
 .branch{
-    background-color: rgb(244,245,246);
+    background-color: rgb(249, 250, 250);
     height:790px;
  }
 .branch-table{
     background-color: white;
     border-radius: 15px;
-    width:1150px;
+    width:1185px;
     padding:30px;
     margin-bottom: 20px;
     overflow-y: auto;
     max-width: 100%;
-    height:700px;
+    height:770px;
 }
 .branch-table-header{
     display: flex;
@@ -42,7 +42,7 @@
     
 }
 .branch-filter{
-    padding-left: 350px;
+    padding-left: 395px;
     display: flex;
 }
 .branch-filter-coponent{
@@ -64,7 +64,7 @@
 }
 .health-insurance-table-filter{
     margin-top: 20px;
-    height:560px;
+    height:550px;
     overflow-y: auto;
 }
 .health-insurance-type-format{

@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 const Department = () => {
-  const navigate = useNavigate();
 const API_URL = 'http://localhost:1323/PhongBan';
 const [selectAll, setSelectAll] = useState(false);
 const [selectedItems, setSelectedItems] = useState([]);
@@ -238,8 +237,8 @@ const [branches, setBranches] = useState([]);
           </form>
         </div>
         <div className="employee-type-save">
-          <button onClick={handleSave}>Lưu</button>
-          <button onClick={closeInsert}>X</button>
+          <button className="employee-type-save-save" onClick={handleSave}>Lưu</button>
+          <button className="employee-type-save-exit" onClick={closeInsert}>X</button>
         </div>
       </div>
     </div>
@@ -289,9 +288,9 @@ const [branches, setBranches] = useState([]);
                 </select>
               </div>
               <div className="save">
-                <button type="submit">Cập Nhật</button>
-                <button type="button" onClick={closeEdit}>X</button>
-                <button type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
+                <button className="employee-type-save-save" type="submit">Cập Nhật</button>
+                <button className="employee-type-save-exit" type="button" onClick={closeEdit}>X</button>
+                <button className="employee-type-save-remove" type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
               </div>
             </form>
           </div>

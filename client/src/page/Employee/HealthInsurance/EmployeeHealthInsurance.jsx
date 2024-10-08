@@ -34,35 +34,29 @@ const EmployeeHealthInsurance = () => {
       console.error('Error fetching health insurances:', error);
     }
   };
-
   const openInsert = () => {
     setInsert(true);
   };
-
   const closeInsert = () => {
     setInsert(false);
     setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""});
   };
-
   const openEdit = (id) => {
     const itemToEdit = baohiem.find(item => item.id === id);
     setBaoHiemData(itemToEdit);
     setEditingId(id); 
     setEdit(true);
   };
-
   const closeEdit = () => {
     setEdit(false);
     setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""}); 
     setEditingId(null); 
   };
-
   const handleSelectAllChange = (event) => {
     const checked = event.target.checked;
     setSelectAll(checked);
     setSelectedItems(selectedItems.map(() => checked));
   };
-
   const handleItemChange = (index) => (event) => {
     const checked = event.target.checked;
     const updatedSelectedItems = [...selectedItems];
@@ -70,7 +64,6 @@ const EmployeeHealthInsurance = () => {
     setSelectedItems(updatedSelectedItems);
     setSelectAll(updatedSelectedItems.every((item) => item));
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBaoHiemData(prevData => ({
@@ -78,7 +71,6 @@ const EmployeeHealthInsurance = () => {
       [name]: value
     }));
   };
-
   const handleSave = async (e) => {
     e.preventDefault();
     const isDuplicate = baohiem.some(item => item.BaoHiem === baohiemData.BaoHiem);
@@ -108,8 +100,6 @@ const EmployeeHealthInsurance = () => {
       });
     }
   };
-
-  
   const handleEdit = async (e) => {
     e.preventDefault();
     if (!editingId) return; 
@@ -207,8 +197,8 @@ const EmployeeHealthInsurance = () => {
                       <input  type="text"  onChange={handleChange}   name="NoiDangKi"  placeholder="Nhập Nơi Đăng Kí"  required/>
                       <input  type="text"  onChange={handleChange}  name="TiLePhi"  placeholder="Nhập Tỉ lệ Phí"  required/>
                       <div className="employee-type-save">
-                        <button type="submit">Lưu</button>
-                        <button type="button" onClick={closeInsert}>X</button>
+                        <button className="employee-type-save-save" type="submit">Lưu</button>
+                        <button className="employee-type-save-exit" type="button" onClick={closeInsert}>X</button>
                       </div>
                     </form>
                   </div>
@@ -248,15 +238,19 @@ const EmployeeHealthInsurance = () => {
                         </div>
                         <form onSubmit={handleEdit}>
                           <div className="input-insert">
-                            <input  type="text"  onChange={handleChange}  value={baohiemData.TenBaoHiem}  name="BaoHiem"  required/>
-                            <input  type="text"  onChange={handleChange}  value={baohiemData.NhaCungCap} name="BaoHiem"  required/>
-                            <input  type="text"  onChange={handleChange}  value={baohiemData.NoiDangKi}  name="BaoHiem"  required/>
-                            <input  type="text"  onChange={handleChange}  value={baohiemData.TiLePhi}  name="BaoHiem"  required/>
+                            <div>Tên Bảo Hiểm</div>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.TenBaoHiem}  name="TenBaoHiem"  required/>
+                            <div>Nhà Cung Cấp</div>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.NhaCungCap} name="NhaCungCap"  required/>
+                            <div>Nơi Đăng Ký</div>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.NoiDangKi}  name="NoiDangKi"  required/>
+                            <div>Tỉ Lệ Phí</div>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.TiLePhi}  name="TiLePhi"  required/>
                           </div>
                           <div className="save">
-                            <button type="submit">Cập Nhật</button>
-                            <button type="button" onClick={closeEdit}>X</button>
-                            <button type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
+                            <button className="employee-type-save-save" type="submit">Cập Nhật</button>
+                            <button className="employee-type-save-exit" type="button" onClick={closeEdit}>X</button>
+                            <button className="employee-type-save-remove" type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
                           </div>
                         </form>
                       </div>

@@ -1,19 +1,19 @@
 .employee{
     flex-grow: 1;
-    background-color: rgb(244, 245, 246);
+    background-color: rgb(249, 250, 250);
     max-width: 100%;
-    height:785px;
+    height:800px;
 }
 
 .table{
     background-color: white;
     border-radius: 15px;
-    width:1150px;
+    width:1185px;
     padding:30px;
     margin-bottom: 20px;
     overflow-y: auto;
     max-width: 100%;
-    height:700px;
+    height:750px;
 }
 .table-header{
     display: flex;

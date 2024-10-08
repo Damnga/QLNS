@@ -206,8 +206,8 @@ const EmployeeTitle = () => {
                         required
                       />
                       <div className="employee-type-save">
-                        <button type="submit">Lưu</button>
-                        <button type="button" onClick={closeInsert}>X</button>
+                        <button className="employee-type-save-save" type="submit">Lưu</button>
+                        <button className="employee-type-save-exit" type="button" onClick={closeInsert}>X</button>
                       </div>
                     </form>
                   </div>
@@ -252,9 +252,9 @@ const EmployeeTitle = () => {
                             />
                           </div>
                           <div className="save">
-                            <button type="submit">Cập Nhật</button>
-                            <button type="button" onClick={closeEdit}>X</button>
-                            <button type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
+                            <button className="employee-type-save-save" type="submit">Cập Nhật</button>
+                            <button className="employee-type-save-exit" type="button" onClick={closeEdit}>X</button>
+                            <button className="employee-type-save-remove"type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
                           </div>
                         </form>
                       </div>

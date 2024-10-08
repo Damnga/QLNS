@@ -1,8 +1,8 @@
 .filtersidebar{
-    height:710px;
+    height:790px;
     width:275px;
     float: left;
-    background-color: rgb(244,245,246);
+    background-color: rgb(249, 250, 250);
     overflow-y: auto;
 }
 .filtersidebar-title{

@@ -20,7 +20,6 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
   useEffect(() => {
     fetchEmployeeTypes();
   }, []);
-
   const fetchEmployeeTypes = async () => {
     try {
       const response = await fetch(API_URL);
@@ -32,34 +31,28 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
       console.error('Error fetching employee types:', error);
     }
   };
-
   const openInsert = () => {
     setInsert(true);
   };
-
   const closeInsert = () => {
     setInsert(false);
     setEmployeeTypeData({ LoaiNhanVien: "" });
   };
-
   const openEdit = (id) => {
     const itemToEdit = employeeTypes.find(item => item.id === id);
     setEmployeeTypeData(itemToEdit);
     setEditingId(id); 
     setEdit(true);
   };
-
   const closeEdit = () => {
     setEdit(false);
     setEmployeeTypeData({ LoaiNhanVien: "" }); 
   };
-
   const handleSelectAllChange = (event) => {
     const checked = event.target.checked;
     setSelectAll(checked);
     setSelectedItems(selectedItems.map(() => checked));
   };
-
   const handleItemChange = (index) => (event) => {
     const checked = event.target.checked;
     const updatedSelectedItems = [...selectedItems];
@@ -67,7 +60,6 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
     setSelectedItems(updatedSelectedItems);
     setSelectAll(updatedSelectedItems.every((item) => item));
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployeeTypeData(prevData => ({
@@ -75,7 +67,6 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
       [name]: value
     }));
   };
-
   const handleSave = async (e) => {
     e.preventDefault();
     const isDuplicate = employeeTypes.some(item => item.LoaiNhanVien === employeeTypeData.LoaiNhanVien);
@@ -105,7 +96,6 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
       });
     }
   };
-
   const handleEdit = async (e) => {
     e.preventDefault();
     if (!editingId) return; 
@@ -132,8 +122,7 @@ const [employeeTypes, setEmployeeTypes] = useState([]);
       });
     }
   };
-
-const handleRemove = async (id) => {
+  const handleRemove = async (id) => {
   if (!id) return; 
   try {
       await fetch(`${API_URL}/${id}`, {
@@ -148,9 +137,8 @@ const handleRemove = async (id) => {
           position: "top-right",
       });
   }
-};
-
-const handleRemoveSelected = async () => {
+  };
+  const handleRemoveSelected = async () => {
   const selectedIds = employeeTypes
       .filter((_, index) => selectedItems[index])
       .map(item => item.id);
@@ -177,7 +165,7 @@ const handleRemoveSelected = async () => {
           position: "top-right",
       });
   }
-};
+  };
 return (
   <div className='employeetype'>
       <FilterHeader handleRemoveSelected={handleRemoveSelected} />
@@ -187,8 +175,8 @@ return (
               <div className="employee-type-search-filter">
                   <input className="employee-type-search-filter-input" type="text" placeholder='Tìm Kiếm' />
               </div>
-              <div className="employee-type-insert">
-                  <button className='employee-type-insert-button' onClick={openInsert}> + Thêm Loại Nhân Viên </button>
+              <div className="branch-insert">
+                <button className='branch-insert-button' onClick={openInsert}> +  Thêm Loại Nhân Viên</button>
               </div>
               {insert && (
                   <div className='overlay'>
@@ -209,8 +197,8 @@ return (
                                   </form>
                               </div>
                               <div className="employee-type-save">
-                                  <button onClick={handleSave}>Lưu</button>
-                                  <button onClick={closeInsert}>X</button>
+                                  <button className="employee-type-save-save"  onClick={handleSave}>Lưu</button>
+                                  <button className="employee-type-save-exit" onClick={closeInsert}>X</button>
                               </div>
                           </div>
                       </div>
@@ -257,9 +245,9 @@ return (
                                                   />
                                               </div>
                                               <div className="save">
-                                                  <button type="submit">Cập Nhật</button>
-                                                  <button type="button" onClick={closeEdit}>X</button>
-                                                  <button type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
+                                                  <button className="employee-type-save-save" type="submit">Cập Nhật</button>
+                                                  <button className="employee-type-save-exit" type="button" onClick={closeEdit}>X</button>
+                                                  <button className="employee-type-save-remove" type="button" onClick={() => handleRemove(item.id)}>Xóa</button>
                                               </div>
                                           </form>
                                       </div>

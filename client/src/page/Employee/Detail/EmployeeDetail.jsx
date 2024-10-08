@@ -147,7 +147,6 @@ const fetchDepartment = async (ID_ChiNhanh) => {
   try {
     const response = await fetch(`${DEPARTMENT_API_URL}?ID_ChiNhanh=${ID_ChiNhanh}`);
     const data = await response.json();
-    console.log('Fetched branches:', data); 
     setDepartment(data);
   } catch (error) {
     console.error('Error fetching branches:', error);
