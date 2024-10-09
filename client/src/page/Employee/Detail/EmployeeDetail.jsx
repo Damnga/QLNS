@@ -58,7 +58,6 @@ const [title_employeeData,setTitle_employeeData]=useState({
     IDNhanVien: id,
     IDChucDanh: "",
     IDPhongBan: "",
-    IDChiNhanh: "",
     NgayBatDau: "",
     NgayKetThuc: "",
 });
@@ -498,7 +497,6 @@ const closeEditTE = () => {
   setEditTE(false);
   setTitle_employeeData({IDChucDanh: "",
     IDPhongBan: "",
-    IDChiNhanh: "",
     NgayBatDau: "",
     NgayKetThuc: "",});  
 };
@@ -509,7 +507,6 @@ const closeInsertTE = () => {
   setInsertTE(false);
   setTitle_employeeData({IDChucDanh: "",
     IDPhongBan: "",
-    IDChiNhanh: "",
     NgayBatDau: "",
     NgayKetThuc: "",});  
 };
@@ -974,7 +971,6 @@ return (
                     <table>
                       <tr>
                           <th>STT</th>
-                          <th>Chi Nhánh</th>
                           <th>Phòng Ban</th>
                           <th>Chức Danh</th>
                           <th>Ngày Bắt Đầu</th>
@@ -983,7 +979,6 @@ return (
                       {title_employee.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index+1}</td>
-                            <td>{getBranchNameById(item.IDChiNhanh)}</td>
                             <td>{getDepartmenthNameById(item.IDPhongBan)}</td>
                             <td>{getTitleNameById(item.IDChucDanh)}</td>
                             <td>{item.NgayBatDau}</td>

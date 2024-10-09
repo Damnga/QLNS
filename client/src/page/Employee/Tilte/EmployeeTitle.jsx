@@ -16,7 +16,7 @@ const EmployeeTitle = () => {
   const [insert, setInsert] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [chucdanhData, setChucdanhData] = useState({ ChucDanh: "" });
+  const [chucdanhData, setChucdanhData] = useState({ TenChucDanh: "" });
   const [chucdanh, setChucDanh] = useState([]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const EmployeeTitle = () => {
 
   const closeInsert = () => {
     setInsert(false);
-    setChucdanhData({ ChucDanh: "" });
+    setChucdanhData({ TenChucDanh: "" });
   };
 
   const openEdit = (id) => {
@@ -52,7 +52,7 @@ const EmployeeTitle = () => {
 
   const closeEdit = () => {
     setEdit(false);
-    setChucdanhData({ ChucDanh: "" });
+    setChucdanhData({ TenChucDanh: "" });
   };
 
   const handleSelectAllChange = (event) => {
@@ -79,7 +79,7 @@ const EmployeeTitle = () => {
 
   const handleSave = async (e) => {
     e.preventDefault(); // Ngăn chặn reload trang
-    const isDuplicate = chucdanh.some(item => item.ChucDanh === chucdanhData.ChucDanh);
+    const isDuplicate = chucdanh.some(item => item.TenChucDanh === chucdanhData.TenChucDanh);
         if (isDuplicate) {
             toast.error('Chức Danh Nhân Viên đã tồn tại!', {
                 position: "top-right",
@@ -200,7 +200,7 @@ const EmployeeTitle = () => {
                       <input
                         type="text"
                         onChange={handleChange}
-                        name="ChucDanh"
+                        name="TenChucDanh"
                         value={chucdanhData.ChucDanh}
                         placeholder="Nhập chức danh"
                         required
@@ -247,7 +247,7 @@ const EmployeeTitle = () => {
                               type="text"
                               onChange={handleChange}
                               value={chucdanhData.ChucDanh}
-                              name="ChucDanh"
+                              name="TenChucDanh"
                               required
                             />
                           </div>

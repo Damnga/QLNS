@@ -406,7 +406,7 @@ const handleRemoveSE = async (id) => {
                         <td>{getEmployeeNameById(item.IDNhanVien)}</td>
                         <td>{item.MucDo}</td>
                         <td>{item.NgayDanhGia}</td>
-                        <td><Pencil/><CircleX onClick={() => handleRemoveSE(item.id)}/></td>
+                        <td><CircleX onClick={() => handleRemoveSE(item.id)}/></td>
                       </tr>
                       ))}
                       </tbody>

@@ -16,8 +16,8 @@ const [insert, setInsert] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editingId, setEditingId] = useState(null); 
   const [phongbanData, setPhongBanData] = useState({
-    PhongBan: "",
-    ID_ChiNhanh:"",
+    TenPhongBan: "",
+    IDChiNhanh:"",
   });
 const BRANCH_API_URL = 'http://localhost:1323/ChiNhanh';
 const [branches, setBranches] = useState([]);
@@ -54,7 +54,8 @@ const [branches, setBranches] = useState([]);
 
   const closeInsert = () => {
     setInsert(false);
-    setPhongBanData({  PhongBan: "",ID_ChiNhanh:"" }); 
+    setPhongBanData({TenPhongBan: "",
+      IDChiNhanh:"",}); 
   };
 
   const openEdit = (id) => {
@@ -66,7 +67,8 @@ const [branches, setBranches] = useState([]);
 
   const closeEdit = () => {
     setEdit(false);
-    setPhongBanData({  PhongBan: "",ID_ChiNhanh:"" });  
+    setPhongBanData({TenPhongBan: "",
+      IDChiNhanh:"", });  
   };
 
   const handleSelectAllChange = (event) => {
@@ -92,7 +94,7 @@ const [branches, setBranches] = useState([]);
   };
   const handleSave = async (e) => {
     e.preventDefault();
-    const isDuplicate = phongban.some(item => item.PhongBan === phongbanData.PhongBan && item.ID_ChiNhanh === phongbanData.ID_ChiNhanh);
+    const isDuplicate = phongban.some(item => item.TenPhongBan === phongbanData.TenPhongBan && item.IDChiNhanh === phongbanData.IDChiNhanh);
         if (isDuplicate) {
             toast.error('Phòng Bạn đã tồn tại!', {
                 position: "top-right",
@@ -219,12 +221,12 @@ const [branches, setBranches] = useState([]);
             <input
               type="text"
               onChange={handleChange}
-              name="PhongBan"
+              name="TenPhongBan"
               placeholder="Nhập Phòng Ban"
               required
             />
             <select
-              name="ID_ChiNhanh"
+              name="IDChiNhanh"
               value={phongbanData.ID_ChiNhanh}
               onChange={handleChange}
               required
@@ -277,10 +279,10 @@ const [branches, setBranches] = useState([]);
                   type="text"
                   onChange={handleChange}
                   value={phongbanData.PhongBan}
-                  name="PhongBan"
+                  name="TenPhongBan"
                   required
                 />
-                <select name="ID_ChiNhanh" value={phongbanData.ID_ChiNhanh} onChange={handleChange}>
+                <select name="IDChiNhanh" value={phongbanData.ID_ChiNhanh} onChange={handleChange}>
                   <option value="">Chọn Chi Nhánh</option>
                   {branches.map(branch => (
                     <option key={branch.id} value={branch.id}>{branch.ChiNhanh}</option>

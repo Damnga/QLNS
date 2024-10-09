@@ -17,7 +17,7 @@ const EmployeeLevel = () => {
   const [edit, setEdit] = useState(false);
   const [editingId, setEditingId] = useState(null); 
   const [capbacData, setCapBacData] = useState({
-    CapBac: "",
+    TenCapBac: "",
     CauTrucLuong: "",
   });
   const [capbac, setCapbac] = useState([]);
@@ -43,7 +43,7 @@ const EmployeeLevel = () => {
 
   const closeInsert = () => {
     setInsert(false);
-    setCapBacData({ CapBac: "", CauTrucLuong: "" }); 
+    setCapBacData({ TenCapBac: "", CauTrucLuong: "" }); 
   };
 
   const openEdit = (id) => {
@@ -55,7 +55,7 @@ const EmployeeLevel = () => {
 
   const closeEdit = () => {
     setEdit(false);
-    setCapBacData({ CapBac: "", CauTrucLuong: "" }); 
+    setCapBacData({ TenCapBac: "", CauTrucLuong: "" }); 
   };
 
   const handleSelectAllChange = (event) => {
@@ -82,7 +82,7 @@ const EmployeeLevel = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    const isDuplicate = capbac.some(item => item.CapBac === capbacData.CapBac);
+    const isDuplicate = capbac.some(item => item.TenCapBac === capbacData.TenCapBac);
         if (isDuplicate) {
             toast.error('Cấp Bậc Nhân Viên đã tồn tại!', {
                 position: "top-right",
@@ -204,7 +204,7 @@ const EmployeeLevel = () => {
                       <input
                         type="text"
                         onChange={handleChange}
-                        name="CapBac"
+                        name="TenCapBac"
                         value={capbacData.CapBac}
                         placeholder="Nhập cấp bậc nhân viên"
                         required
@@ -259,7 +259,7 @@ const EmployeeLevel = () => {
                               type="text"
                               onChange={handleChange}
                               value={capbacData.CapBac}
-                              name="CapBac"
+                              name="TenCapBac"
                               required
                             />
                             <input

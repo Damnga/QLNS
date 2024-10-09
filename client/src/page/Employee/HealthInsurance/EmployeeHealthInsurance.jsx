@@ -15,7 +15,7 @@ const EmployeeHealthInsurance = () => {
   const [edit, setEdit] = useState(false);
   const [editingId, setEditingId] = useState(null); 
   const [baohiemData, setBaoHiemData] = useState({
-    TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""
+    TenBaoHiem: "",NhaCungCap:"",NoiDangKi:"",TyLePhi:""
   });
   const [baohiem, setBaoHiem] = useState([]);
 
@@ -39,7 +39,7 @@ const EmployeeHealthInsurance = () => {
   };
   const closeInsert = () => {
     setInsert(false);
-    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""});
+    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TyLePhi:""});
   };
   const openEdit = (id) => {
     const itemToEdit = baohiem.find(item => item.id === id);
@@ -49,7 +49,7 @@ const EmployeeHealthInsurance = () => {
   };
   const closeEdit = () => {
     setEdit(false);
-    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKy:"",TiLePhi:""}); 
+    setBaoHiemData({TenBaoHiem: "",NhaCungCap:"",NoiDangKi:"",TyLePhi:""}); 
     setEditingId(null); 
   };
   const handleSelectAllChange = (event) => {
@@ -73,7 +73,7 @@ const EmployeeHealthInsurance = () => {
   };
   const handleSave = async (e) => {
     e.preventDefault();
-    const isDuplicate = baohiem.some(item => item.BaoHiem === baohiemData.BaoHiem);
+    const isDuplicate = baohiem.some(item => item.TenBaoHiem === baohiemData.TenBaoHiem);
         if (isDuplicate) {
             toast.error('Bảo hiểm Nhân Viên đã tồn tại!', {
                 position: "top-right",
@@ -195,7 +195,7 @@ const EmployeeHealthInsurance = () => {
                       <input type="text" onChange={handleChange}  name="TenBaoHiem"  placeholder="Nhập Bảo Hiểm"  required/>
                       <input  type="text"   onChange={handleChange}  name="NhaCungCap"  placeholder="Nhập Nhà Cung Cấp"  required />
                       <input  type="text"  onChange={handleChange}   name="NoiDangKi"  placeholder="Nhập Nơi Đăng Kí"  required/>
-                      <input  type="text"  onChange={handleChange}  name="TiLePhi"  placeholder="Nhập Tỉ lệ Phí"  required/>
+                      <input  type="text"  onChange={handleChange}  name="TyLePhi"  placeholder="Nhập Tỉ lệ Phí"  required/>
                       <div className="employee-type-save">
                         <button className="employee-type-save-save" type="submit">Lưu</button>
                         <button className="employee-type-save-exit" type="button" onClick={closeInsert}>X</button>
@@ -228,7 +228,7 @@ const EmployeeHealthInsurance = () => {
                 <div onClick={() => openEdit(item.id)}>{item.TenBaoHiem}</div>
                 <div onClick={() => openEdit(item.id)}>{item.NhaCungCap}</div>
                 <div onClick={() => openEdit(item.id)}>{item.NoiDangKi}</div>
-                <div onClick={() => openEdit(item.id)}>{item.TiLePhi}</div>
+                <div onClick={() => openEdit(item.id)}>{item.TyLePhi}</div>
                 {edit && editingId === item.id && (
                   <div className='overlay'>
                     <div className='insert'>
@@ -245,7 +245,7 @@ const EmployeeHealthInsurance = () => {
                             <div>Nơi Đăng Ký</div>
                             <input  type="text"  onChange={handleChange}  value={baohiemData.NoiDangKi}  name="NoiDangKi"  required/>
                             <div>Tỉ Lệ Phí</div>
-                            <input  type="text"  onChange={handleChange}  value={baohiemData.TiLePhi}  name="TiLePhi"  required/>
+                            <input  type="text"  onChange={handleChange}  value={baohiemData.TiLePhi}  name="TyLePhi"  required/>
                           </div>
                           <div className="save">
                             <button className="employee-type-save-save" type="submit">Cập Nhật</button>

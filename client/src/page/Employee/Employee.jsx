@@ -3,12 +3,11 @@ import "./Employee.css";
 import FilterSidebar from '../../component/FilterSidebar/FilterSidebar';
 import FilterHeader from '../../component/FilterHeader/FilterHeader';
 import { useState } from 'react';
-import { Filter} from 'lucide-react';
+import { Filter,Asterisk} from 'lucide-react';
 import {Link} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import Insert from "./Insert/insert";
 const API_URL = 'http://localhost:1323/NhanVien';
 const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
   const navigate = useNavigate();
@@ -245,6 +244,7 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
             ))}
           </select>
           <input type="text" onChange={handleChange} name="GioiTinh" placeholder="Nhập Giới Tính"required />
+          <div>Nhập Ngày Sinh</div>
           <input type="date" onChange={handleChange} name="NgaySinh" placeholder="Nhập Ngày Sinh"required />
           <input type="text" onChange={handleChange} name="Sdt" placeholder="Nhập Số Điện Thoại"required />
           <select  name="ID_CapBac" value={employeeData.ID_CapBac} onChange={handleChange} required>
@@ -254,14 +254,15 @@ const Employee = ({open,setOpen,onHeaderClick,clickLink,toggleDialog}) => {
             ))}
           </select>
           <input type="text" onChange={handleChange} name="DiaChi" placeholder="Nhập Nhập Địa Chỉ"required />
+          <div>Ngày Nhận Việc</div>
           <input type="date" onChange={handleChange} name="NgayBatDau" placeholder="Nhập Ngày Nhận Việc"required />
           <input type="date" onChange={handleChange} name="NgayKetThuc" placeholder="Nhập Ngày Kết Thúc"/>
           <input type="text" onChange={handleChange} name="CCCD" placeholder="Nhập CCCD"required />
           </form>
         </div>
         <div className="employee-type-save">
-          <button onClick={handleSave}>Lưu</button>
-          <button onClick={closeInsert}>X</button>
+          <button className="employee-type-save-save" onClick={handleSave}>Lưu</button>
+          <button className="employee-type-save-exit" onClick={closeInsert}>X</button>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ const [edit, setEdit] = useState(false);
 const [editingId, setEditingId] = useState(null); 
 const [editGE, setEditGE] = useState(false);
 const [editingIdGE, setEditingIdGE] = useState(null); 
-const [nhomnhanvienData, setNhomnhanvienData] = useState({ NhomNhanVien: "" });
+const [nhomnhanvienData, setNhomnhanvienData] = useState({ TenNhom: "" });
 const [nhomnhanvien, setNhomnhanvien] = useState([]);
 const [nhanvien,setNhanvien]=useState([]);
 const [group_empData, setGroup_empData] = useState({ IDNhanVien:"",IDNhom:""});
@@ -64,7 +64,7 @@ const openInsertGE = () => {
 };
 const closeInsert = () => {
     setInsert(false);
-    setNhomnhanvienData({ NhomNhanVien: "" });
+    setNhomnhanvienData({ TenNhom: "" });
 };
 const closeInsertGE = () => {
     setInsertGE(false);
@@ -78,7 +78,7 @@ const openEdit = (id) => {
 };
 const closeEdit = () => {
     setEdit(false);
-    setNhomnhanvienData({ NhomNhanVien: "" }); 
+    setNhomnhanvienData({ TenNhom: "" }); 
 };
 const openEditGE = (id) => {
     setEditingIdGE(id);
@@ -122,7 +122,7 @@ const handleChangeGE = (e) => {
 };
 const handleSave = async (e) => {
     e.preventDefault();
-    const isDuplicate = nhomnhanvien.some(item => item.NhomNhanVien === nhomnhanvienData.NhomNhanVien);
+    const isDuplicate = nhomnhanvien.some(item => item.TenNhom === nhomnhanvienData.TenNhom);
         if (isDuplicate) {
             toast.error('Nhóm hiểm Nhân Viên đã tồn tại!', {
                 position: "top-right",
@@ -287,7 +287,7 @@ const handleRemoveSelected = async () => {
                       <input
                         type="text"
                         onChange={handleChange}
-                        name="NhomNhanVien"
+                        name="TenNhom"
                         placeholder="Nhập Nhóm nhân viên"
                         required
                       />
